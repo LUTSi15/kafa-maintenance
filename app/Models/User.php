@@ -18,8 +18,17 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username', // Add username field
         'email',
         'password',
+        'role',
+        'phoneNum', // Add phone field
+        'icNum', // Add ic_number field
+        'address', // Add address field
+        'gender', // Add gender field
+        'race', // Add race field
+        'age', // Add age field
+        'status', // Add status field
     ];
 
     /**
@@ -43,5 +52,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function guardian(){
+
+        return $this->hasOne(Guardian::class);
+    }
+
+    public function kafa(){
+
+        return $this->hasOne(Kafa::class);
+    }
+
+    public function muip(){
+
+        return $this->hasOne(Muip::class);
+    }
+
+    public function teacher(){
+
+        return $this->hasOne(Teacher::class);
     }
 }

@@ -24,6 +24,22 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
+        <!-- Role -->
+        <div class="mt-4">
+            <x-input-label for="role" :value="__('Role')" />
+        
+            <select id="role" name="role" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                <option value="" disabled selected>Select a role</option>
+                <option value="kafa">Kafa</option>
+                <option value="muip">Muip</option>
+                <option value="guardian">Guardian</option>
+                <option value="teacher">Teacher</option>
+            </select>
+        
+            <!-- Validation error message -->
+            <x-input-error :messages="$errors->get('role')" class="mt-2" />
+        </div>
+
         <!-- Remember Me -->
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
