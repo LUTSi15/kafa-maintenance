@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentResultController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,6 +31,10 @@ Route::controller(ActivityController::class)->middleware('auth')->group(function
     Route::get('/muip/manageActivity', 'muipManageActivity')->name('muip.manageActivity');
     Route::get('/guardian/manageActivity', 'guardianManageActivity')->name('guardian.manageActivity');
     Route::get('/teacher/manageActivity', 'teacherManageActivity')->name('teacher.manageActivity');
+});
+
+Route::controller(StudentResultController::class)->middleware('auth')->group(function () {
+    Route::get('/teacher/listStudent', 'teacherlistStudent')->name('teacher.listStudent');
 });
 
 require __DIR__.'/auth.php';
