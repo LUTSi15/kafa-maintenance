@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class StudentResultController extends Controller
@@ -10,9 +11,13 @@ class StudentResultController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function teacherlistStudent()
     {
-        //
+        // Retrieve all students from the database
+        $students = Student::all();
+
+        // Return the data to the view
+        return view('ManageStudentResults.TeacherResultList', ['students' => $students]);
     }
 
     /**

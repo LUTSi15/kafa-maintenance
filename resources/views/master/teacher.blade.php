@@ -42,7 +42,7 @@
                             Timetable</span></a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link "><i class="fas fa-chart-line "></i><span class="item"> Student
+                    <a href="{{route('teacher.listStudent')}}" class="nav-link "><i class="fas fa-chart-line "></i><span class="item"> Student
                             Result</span></a>
                 </li>
                 <li>
