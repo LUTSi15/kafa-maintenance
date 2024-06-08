@@ -70,7 +70,7 @@
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Report</span>
                 <li>
-                    <form method="" action="" class="d-inline">
+                    <form method="GET" action="{{route('kafa.listReportActivity')}}" class="d-inline">
                         <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
                             <i class="fas fa-book-open"></i><span class="item"> Report Activity</span>
                         </button>
