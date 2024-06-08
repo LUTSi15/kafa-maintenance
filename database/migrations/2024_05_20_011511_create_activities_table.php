@@ -17,13 +17,14 @@ return new class extends Migration
             $table->string('activityName');
             $table->date('dateStart');
             $table->date('dateEnd');
-            $table->string('timeStart');
-            $table->string('timeEnd');
+            $table->time('timeStart');
+            $table->time('timeEnd');
             $table->string('venue');
             $table->string('organizerName');
+            $table->string('attendees');
             $table->string('description');
             $table->string('status');
-            $table->string('feedback');
+            $table->string('feedback')->nullable();
             $table->timestamps();
         });
     }

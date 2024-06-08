@@ -38,33 +38,54 @@
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Activity</span>
                 <li>
-                    <a href="#" class="nav-link "><i class="fas fa-table "></i><span class="item"> Class
-                            Timetable</span></a>
+                    <form method="" action="" class="d-inline">
+                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
+                            <i class="fas fa-table"></i><span class="item"> Class Timetable</span>
+                        </button>
+                    </form>
                 </li>
                 <li>
-                    <a href="#" class="nav-link "><i class="fas fa-chart-line "></i><span class="item"> Student
-                            Result</span></a>
+                    <form method="" action="" class="d-inline">
+                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
+                            <i class="fas fa-chart-line"></i><span class="item"> Student Result</span>
+                        </button>
+                    </form>
                 </li>
                 <li>
-                    <a href="#" class="nav-link active"><i class="fas fa-pencil "></i><span class="item">
-                            Activity</span></a>
+                    <form method="" action="" class="d-inline">
+                        <button type="submit" class="btn btn-link nav-link p-0 active" style="color: inherit;">
+                            <i class="fas fa-pencil"></i><span class="item"> Activity</span>
+                        </button>
+                    </form>
                 </li>
                 <li>
-                    <a href="#" class="nav-link"><i class="fas fa-pencil "></i><span class="item">
-                            Profile's List</span></a>
+                    <form method="" action="" class="d-inline">
+                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
+                            <i class="fas fa-pencil"></i><span class="item"> Profile's List</span>
+                        </button>
+                    </form>
                 </li>
             </ul>
+            
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Profile</span>
                 <li>
-                    <a href="#" class="nav-link "><i class="fas fa-user "></i><span class="item">
-                            Profile</span></a>
+                    <form method="" action="" class="d-inline">
+                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
+                            <i class="fas fa-user"></i><span class="item"> Profile</span>
+                        </button>
+                    </form>
                 </li>
                 <li>
-                    <a href="{{route('logout')}}" class="nav-link "><i class="fas fa-sign-out-alt "></i><span class="item">
-                            LogOut</span></a>
+                    <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
+                            <i class="fas fa-sign-out-alt"></i><span class="item"> LogOut</span>
+                        </button>
+                    </form>
                 </li>
             </ul>
+            
         </div>
 
     </nav>
