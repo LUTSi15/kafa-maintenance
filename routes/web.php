@@ -32,6 +32,7 @@ Route::controller(ActivityController::class)->middleware('auth')->group(function
     Route::get('/muip/manageActivity', 'muipManageActivity')->name('muip.manageActivity');
     Route::get('/guardian/manageActivity', 'guardianManageActivity')->name('guardian.manageActivity');
     Route::get('/teacher/manageActivity', 'teacherManageActivity')->name('teacher.manageActivity');
+    Route::get('/kafa/manageActivity', 'kafaCreateActivity')->name('kafa.createActivity');
 });
 
 Route::controller(ReportController::class)->middleware('auth')->group(function () {
