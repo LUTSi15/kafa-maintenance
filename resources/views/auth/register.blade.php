@@ -38,7 +38,7 @@
                 <x-input-label for="role" :value="__('Role')" />
                 <select id="role" name="role" class="block mt-1 w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
                     <option value="" {{ old('role') == '' ? 'selected' : '' }}>Select Role</option>
-                    <option value="kafa" {{ old('role') == 'kafa' ? 'selected' : '' }}>Kafa</option>
+                    <option value="kafa" {{ old('role') == 'kafa' ? 'selected' : '' }}>KAFA</option>
                     <option value="muip" {{ old('role') == 'muip' ? 'selected' : '' }}>MUIP</option>
                     <option value="guardian" {{ old('role') == 'guardian' ? 'selected' : '' }}>Guardian</option>
                     <option value="teacher" {{ old('role') == 'teacher' ? 'selected' : '' }}>Teacher</option>

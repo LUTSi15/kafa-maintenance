@@ -38,39 +38,58 @@
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Activity</span>
                 <li>
-                    <a href="#" class="nav-link "><i class="fas fa-table "></i><span class="item"> Approve
-                            Activity</span></a>
+                    <form method="" action="" class="d-inline">
+                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
+                            <i class="fas fa-table"></i><span class="item"> Approve Activity</span>
+                        </button>
+                    </form>
                 </li>
                 <li>
-                    <a href="#" class="nav-link active"><i class="fas fa-pencil "></i><span class="item">
-                            Activity</span></a>
-                </li>
-            </ul>
-            <ul class="list-unstyled text-white py-2">
-                <span class="fw-bold h5">Report</span>
-                <li>
-                    <a href="#" class="nav-link "><i class="fas fa-book-open "></i><span class="item">Report
-                            Activity</span></a>
-                </li>
-                <li>
-                    <a href="#" class="nav-link "><i class="fas fa-book-open "></i><span class="item">Report
-                            Acadedmic</span></a>
-                </li>
-            </ul>
-            <ul class="list-unstyled text-white py-2">
-                <span class="fw-bold h5">Profile</span>
-                <li>
-                    <a href="#" class="nav-link "><i class="fas fa-user "></i><span class="item">
-                            Profile</span></a>
-                </li>
-                <li>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: block;">
-                        @csrf
-                        <button class="nav-link " type="submit"><i class="fas fa-sign-out-alt "></i><span class="item">
-                            Log Out</span></button>
+                    <form method="" action="" class="d-inline">
+                        <button type="submit" class="btn btn-link nav-link p-0 active" style="color: inherit;">
+                            <i class="fas fa-pencil"></i><span class="item"> Activity</span>
+                        </button>
                     </form>
                 </li>
             </ul>
+            
+            <ul class="list-unstyled text-white py-2">
+                <span class="fw-bold h5">Report</span>
+                <li>
+                    <form method="" action="" class="d-inline">
+                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
+                            <i class="fas fa-book-open"></i><span class="item"> Report Activity</span>
+                        </button>
+                    </form>
+                </li>
+                <li>
+                    <form method="" action="" class="d-inline">
+                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
+                            <i class="fas fa-book-open"></i><span class="item"> Report Academic</span>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+            
+            <ul class="list-unstyled text-white py-2">
+                <span class="fw-bold h5">Profile</span>
+                <li>
+                    <form method="" action="" class="d-inline">
+                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
+                            <i class="fas fa-user"></i><span class="item"> Profile</span>
+                        </button>
+                    </form>
+                </li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
+                            <i class="fas fa-sign-out-alt"></i><span class="item">LogOut</span>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+            
         </div>
 
     </nav>
