@@ -32,7 +32,7 @@ Route::controller(ActivityController::class)->middleware('auth')->group(function
     Route::get('/muip/manageActivity', 'muipManageActivity')->name('muip.manageActivity');
     Route::get('/guardian/manageActivity', 'guardianManageActivity')->name('guardian.manageActivity');
     Route::get('/teacher/manageActivity', 'teacherManageActivity')->name('teacher.manageActivity');
-    Route::get('/kafa/manageActivity', 'kafaCreateActivity')->name('kafa.createActivity');
+    Route::get('/kafa/createActivity', 'kafaCreateActivity')->name('kafa.createActivity');
 });
 
 Route::controller(ReportController::class)->middleware('auth')->group(function () {
@@ -40,6 +40,8 @@ Route::controller(ReportController::class)->middleware('auth')->group(function (
     Route::get('/kafa/{activity}/viewReportActivity', 'kafaViewReportActivity')->name('kafa.viewReportActivity');
     Route::get('/kafa/{activity}/createReportActivity', 'kafaCreateReportActivity')->name('kafa.createReportActivity');
     Route::put('/kafa/{activity}/updateReportActivity', 'kafaUpdateReportActivity')->name('kafa.updateReportActivity');
+    Route::get('/muip/listReportActivity', 'muipListReportActivity')->name('muip.listReportActivity');
+    Route::get('/muip/{activity}/viewReportActivity', 'muipViewReportActivity')->name('muip.viewReportActivity');
 });
 
 Route::controller(StudentResultController::class)->middleware('auth')->group(function () {
