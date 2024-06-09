@@ -20,11 +20,94 @@ class ActivityController extends Controller
         return view('ManageKAFAActivities.kafaActivity', ['activities' => $activities]);
     }
 
+ // ActivityController.php
+
+    public function kafaViewActivity(Activity $activity)
+    {
+        // Pass the activity details to the view
+        return view('ManageKAFAActivities.kafaViewActivity', ['activity' => $activity]);
+    }
+
+
     public function kafaCreateActivity()
     {
         //
         return view('ManageKAFAActivities.kafaAddActivity');
     }
+
+    public function kafaEditActivity($id)
+    {
+        // Retrieve the activity record based on the provided ID
+        $activity = Activity::find($id);
+    
+        // Check if the activity record exists
+        if (!$activity) {
+            // Redirect back with an error message if the activity does not exist
+            return redirect()->back()->with('error', 'Activity not found.');
+        }
+    
+        // Pass the activity details to the view for editing
+        return view('ManageKAFAActivities.kafaEditActivity', ['activity' => $activity]);
+    }
+
+    public function kafaDeleteActivity($id)
+    {
+        // Retrieve the activity record based on the provided ID
+        $activity = Activity::find($id);
+
+        // Check if the activity record exists
+        if ($activity) {
+            // Delete the activity
+            $activity->delete();
+
+            // Redirect back or to a specific page after deletion
+            return redirect()->route('kafa.manageActivity')->with('success', 'Activity deleted successfully.');
+        } else {
+            // Redirect back or display an error message if the activity does not exist
+            return redirect()->route('kafa.manageActivity')->with('error', 'Activity not found.');
+        }
+    }
+
+    public function kafaUpdateActivity(Request $request, Activity $activity)
+    {
+    
+        // Check if the activity record exists
+        if (!$activity) {
+            // Redirect back or display an error message if the activity does not exist
+            return redirect()->route('kafa.manageActivity')->with('error', 'Activity not found.');
+        }
+    
+        // Validate the incoming request data
+        // $validatedData = $request->validate([
+        //     'activityName' => 'required|string|max:255',
+        //     'venue' => 'required|string|max:255',
+        //     'dateStart' => 'required|date',
+        //     'dateEnd' => 'required|date|after_or_equal:dateStart',
+        //     'attendees' => 'required|string|max:255',
+        //     'organizerName' => 'required|string|max:255',
+        //     'description' => 'required|string',
+        //     'feedback' => 'nullable|string',
+        // ]);
+
+        $activity->update([
+            'activityName' => $request->input('activityName'),
+            'venue' => $request->input('venue'),
+            'dateStart' => $request->input('dateStart'),
+            'dateEnd' => $request->input('dateEnd'),
+            'timeStart' => $request->input('timeStart'),
+            'timeEnd' => $request->input('timeEnd'),
+            'attendees' => $request->input('attendees'),
+            'organizerName' => $request->input('organizerName'),
+            'description' => $request->input('description'),
+            'feedback' => $request->input('feedback'),
+        ]);
+    
+    
+        // Redirect back with a success message
+        return redirect()->route('kafa.manageActivity')->with('success', 'Activity updated successfully.');
+    }
+    
+
 
     /**
      * Display a listing of the activity in muip page.
