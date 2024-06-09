@@ -79,8 +79,11 @@
                             Profile</span></a>
                 </li>
                 <li>
-                    <a href="{{route('logout')}}" class="nav-link "><i class="fas fa-sign-out-alt "></i><span class="item">
-                            LogOut</span></a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: block;">
+                        @csrf
+                        <button class="nav-link " type="submit"><i class="fas fa-sign-out-alt "></i><span class="item">
+                            Log Out</span></button>
+                    </form>
                 </li>
             </ul>
         </div>
