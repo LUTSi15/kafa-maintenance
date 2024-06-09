@@ -42,6 +42,9 @@ Route::controller(ReportController::class)->middleware('auth')->group(function (
     Route::put('/kafa/{activity}/updateReportActivity', 'kafaUpdateReportActivity')->name('kafa.updateReportActivity');
     Route::get('/muip/listReportActivity', 'muipListReportActivity')->name('muip.listReportActivity');
     Route::get('/muip/{activity}/viewReportActivity', 'muipViewReportActivity')->name('muip.viewReportActivity');
+    Route::get('/muip/listClassReport', 'muipListClassReport')->name('muip.listClassReport');
+    Route::get('/muip/{classroom}/classAcademicReport', 'muipClassAcademicReport')->name('muip.classAcademicReport');
+    Route::get('/muip/{student}/{classroom}/studentAcademicReport', 'muipStudentAcademicReport')->name('muip.studentAcademicReport');
 });
 
 Route::controller(StudentResultController::class)->middleware('auth')->group(function () {
