@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -12,8 +13,17 @@ class ActivityController extends Controller
      */
     public function kafaManageActivity()
     {
+        // Retrieve all records from the activities table
+        $activities = Activity::all();
+
+        // Pass the data to the view
+        return view('ManageKAFAActivities.kafaActivity', ['activities' => $activities]);
+    }
+
+    public function kafaCreateActivity()
+    {
         //
-        return view('ManageKAFAActivities.kafaActivity');
+        return view('ManageKAFAActivities.kafaAddActivity');
     }
 
     /**
