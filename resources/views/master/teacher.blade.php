@@ -45,15 +45,13 @@
                     </form>
                 </li>
                 <li>
-                    <form method="" action="" class="d-inline">
-                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
-                            <i class="fas fa-chart-line"></i><span class="item"> Student Result</span>
-                        </button>
-                    </form>
+                    <a href="{{ route('teacher.listStudent') }}" class="nav-link" style="color: inherit;">
+                        <i class="fas fa-chart-line"></i><span class="item"> Student Result</span>
+                    </a>
                 </li>
                 <li>
                     <form method="" action="" class="d-inline">
-                        <button type="submit" class="btn btn-link nav-link p-0 active" style="color: inherit;">
+                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
                             <i class="fas fa-pencil"></i><span class="item"> Activity</span>
                         </button>
                     </form>
@@ -80,7 +78,7 @@
                     <form method="POST" action="{{ route('logout') }}" class="d-inline">
                         @csrf
                         <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
-                            <i class="fas fa-sign-out-alt"></i><span class="item"> LogOut</span>
+                            <i class="fas fa-sign-out-alt"></i><span class="item"> Log out</span>
                         </button>
                     </form>
                 </li>
@@ -120,7 +118,7 @@
                     </div>
                 </div>
             </div>
-
+        </div>
     </section>
 
     <script src="../../js/bootstrap.bundle.min.js"></script>
