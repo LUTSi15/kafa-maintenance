@@ -56,14 +56,14 @@
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Report</span>
                 <li>
-                    <form method="GET" action="{{route('kafa.listReportActivity')}}" class="d-inline">
+                    <form method="GET" action="{{route('muip.listReportActivity')}}" class="d-inline">
                         <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
                             <i class="fas fa-book-open"></i><span class="item"> Report Activity</span>
                         </button>
                     </form>
                 </li>
                 <li>
-                    <form method="" action="" class="d-inline">
+                    <form method="GET" action="{{route('muip.listClassReport')}}" class="d-inline">
                         <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
                             <i class="fas fa-book-open"></i><span class="item"> Report Academic</span>
                         </button>
@@ -129,6 +129,7 @@
 
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script src="../../js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>
