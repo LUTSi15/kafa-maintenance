@@ -60,19 +60,24 @@ class ReportController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display a listing of the activity.
      */
-    public function edit(string $id)
+    public function muipListReportActivity()
     {
-        //
+        // Fetch all records from the 'activities' table
+        $activities = Activity::where('status', 'finished')->get();
+
+        // Return the data to MUIPListReportActivity page with list of activities
+        return view('ManageReportsAndActivities.MUIPListReportActivity')->with('activities', $activities);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Show the detail of the report activity.
      */
-    public function update(Request $request, string $id)
+    public function muipViewReportActivity(Activity $activity)
     {
-        //
+        // Return the data to MUIPViewReportActivity page with list of activities
+        return view('ManageReportsAndActivities.MUIPViewReportActivity')->with('activity', $activity);
     }
 
     /**
