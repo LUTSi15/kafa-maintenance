@@ -9,6 +9,12 @@ class Teacher extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'classroom_id', // Add classroom id field
+        'staff_id', // Add staff id field
+        'kafaName', // Add Name of Kafa field
+    ];
+
     public function user(){
 
         return $this->belongsTo(User::class);

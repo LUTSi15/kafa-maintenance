@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StudentResultController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,14 @@ Route::controller(ActivityController::class)->middleware('auth')->group(function
     Route::get('/muip/manageActivity', 'muipManageActivity')->name('muip.manageActivity');
     Route::get('/guardian/manageActivity', 'guardianManageActivity')->name('guardian.manageActivity');
     Route::get('/teacher/manageActivity', 'teacherManageActivity')->name('teacher.manageActivity');
+    Route::get('/kafa/manageActivity', 'kafaCreateActivity')->name('kafa.createActivity');
+});
+
+Route::controller(ReportController::class)->middleware('auth')->group(function () {
+    Route::get('/kafa/listReportActivity', 'kafaListReportActivity')->name('kafa.listReportActivity');
+    Route::get('/kafa/{activity}/viewReportActivity', 'kafaViewReportActivity')->name('kafa.viewReportActivity');
+    Route::get('/kafa/{activity}/createReportActivity', 'kafaCreateReportActivity')->name('kafa.createReportActivity');
+    Route::put('/kafa/{activity}/updateReportActivity', 'kafaUpdateReportActivity')->name('kafa.updateReportActivity');
 });
 
 Route::controller(StudentResultController::class)->middleware('auth')->group(function () {
