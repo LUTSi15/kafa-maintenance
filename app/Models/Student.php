@@ -9,6 +9,19 @@ class Student extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'guardian_id', 
+        'classroom_id', 
+        'icNum', 
+        'studentName', 
+        'gender', 
+        'race', 
+        'age',
+        'birthDate',
+        'status',
+        'averageResult'
+    ];
+
     public function guardian()
     {
 
