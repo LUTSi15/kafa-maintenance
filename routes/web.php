@@ -37,6 +37,10 @@ Route::controller(ActivityController::class)->middleware('auth')->group(function
     Route::put('/kafa/updateActivity/{activity}', 'kafaUpdateActivity')->name('kafa.updateActivity'); // Change to PUT method
     Route::delete('/kafa/deleteActivity/{id}', 'kafaDeleteActivity')->name('kafa.deleteActivity'); // Change to DELETE method
     Route::get('/kafa/viewActivity/{activity}', 'kafaViewActivity')->name('kafa.viewActivity');
+    Route::get('/guardian/manageActivity', 'guardianManageActivity')->name('guardian.manageActivity');
+    Route::get('/guardian/viewActivity/{activity}', 'guardianViewActivity')->name('guardian.viewActivity');
+    Route::get('/teacher/manageActivity', 'teacherManageActivity')->name('teacher.manageActivity');
+    Route::get('/teacher/viewActivity/{activity}', 'teacherViewActivity')->name('teacher.viewActivity');
 });
 
 
