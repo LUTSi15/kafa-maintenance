@@ -1,4 +1,4 @@
-@extends('../master/teacher')
+@extends('../master/muip')
 @section('content')
     <div class="container mt-4">
         <div class="card">
@@ -63,7 +63,7 @@
                 </form>
 
                 <div class="row">
-                    <form method="GET" action="{{ route('teacher.manageActivity') }}">
+                    <form method="GET" action="{{ route('muip.manageActivity') }}">
                         <div class="col-sm-10 offset-sm-2">
                             <button type="submit" class="btn btn-danger">Back</button>
                         </div>

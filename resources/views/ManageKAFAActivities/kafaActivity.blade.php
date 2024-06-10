@@ -12,6 +12,7 @@
     <thead class="table-secondary">
         <tr>
             <th scope="col" class="text-start px-5">Activity</th>
+            <th scope="col" class="text-start">Status</th> <!-- New column for status -->
             <th scope="col" class="text-center" style="width: 200px;">Action</th>
         </tr>
     </thead>
@@ -19,6 +20,7 @@
         @foreach ($activities as $activity)
             <tr>
                 <td class="px-5">{{ $activity->activityName }}</td>
+                <td>{{ $activity->status }}</td> <!-- Status column -->
                 <td class="text-center">
                     <div class="btn-group" role="group">
                         <a href="{{ route('kafa.viewActivity', $activity->id) }}" class="btn btn-info btn-sm mx-3 rounded-pill"><i class="fas fa-eye" title="View"></i> View</a>
