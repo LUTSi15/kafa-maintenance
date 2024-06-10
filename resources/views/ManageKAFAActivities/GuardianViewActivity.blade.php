@@ -1,4 +1,4 @@
-@extends('../master/kafa')
+@extends('../master/guardian')
 @section('content')
     <div class="container mt-4">
         <div class="card">

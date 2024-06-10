@@ -1,4 +1,4 @@
-@extends('../master/kafa')
+@extends('../master/teacher')
 @section('content')
 
 <div class="d-flex justify-content-end mb-3">

@@ -1,9 +1,8 @@
 @extends('../master/muip')
 @section('content')
 
-
 <div class="d-flex justify-content-end mb-3">
-    <form action="{{ route('muip.manageActivity') }}" method="GET" class="d-flex">
+    <form action="{{ route('muip.approveActivity') }}" method="GET" class="d-flex">
         <input type="text" name="search" class="form-control" placeholder="Search" aria-label="Search" value="{{ request('search') }}" />
         <button type="submit" class="btn btn-primary text-white btn-sm mx-3">Search</button>
     </form>
@@ -22,9 +21,19 @@
                 <td class="px-5">{{ $activity->activityName }}</td>
                 <td class="text-center">
                     <div class="btn-group" role="group">
-                        <a href="{{ route('muip.viewActivity', $activity->id) }}" class="btn btn-info btn-sm">
-                            <i class="fas fa-eye" title="View"></i> View
-                        </a>
+                        <form method="POST" action="{{ route('muip.approveActivityAction', $activity->id) }}" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-success btn-sm">
+                                <i class="fas fa-check" title="Approve"></i> Approve
+                            </button>
+                        </form>
+                        <form method="POST" action="{{ route('muip.rejectActivityAction', $activity->id) }}" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to reject this activity?')">
+                                <i class="fas fa-times" title="Reject"></i> Reject
+                            </button>
+                        </form>
                     </div>
                 </td>
             </tr>
@@ -37,5 +46,3 @@
 </table>
 
 @endsection
-
-

@@ -136,10 +136,45 @@ class ActivityController extends Controller
     /**
      * Display a listing of the activity in muip page.
      */
-    public function muipManageActivity()
+    public function muipManageActivity(Request $request)
     {
-        //
-        return view('ManageKAFAActivities.muipActivity');
+        $search = $request->input('search');
+        $activities = Activity::when($search, function ($query, $search) {
+            return $query->where('activityName', 'like', '%' . $search . '%');
+        })->get();
+    
+        return view('ManageKAFAActivities.muipActivity', ['activities' => $activities]);
+    }
+    
+    public function muipViewActivity(Activity $activity)
+    {
+        return view('ManageKAFAActivities.muipViewActivity', ['activity' => $activity]);
+    }
+    
+    public function muipApproveActivity(Request $request)
+    {
+        $search = $request->input('search');
+        $activities = Activity::where('activityName', 'like', '%' . $search . '%')->get();
+        return view('ManageKAFAActivities.muipApproveActivity', compact('activities'));
+    }
+
+    
+    public function approveActivity($id)
+    {
+        $activity = Activity::findOrFail($id);
+        $activity->status = 'approved';
+        $activity->save();
+    
+        return redirect()->route('muip.approveActivity')->with('success', 'Activity approved successfully.');
+    }
+    
+    public function rejectActivity($id)
+    {
+        $activity = Activity::findOrFail($id);
+        $activity->status = 'rejected';
+        $activity->save();
+    
+        return redirect()->route('muip.approveActivity')->with('success', 'Activity rejected successfully.');
     }
 
     /**
