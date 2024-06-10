@@ -121,20 +121,51 @@ class ActivityController extends Controller
     /**
      * Display a listing of the activity in guardian page.
      */
-    public function guardianManageActivity()
+    public function guardianManageActivity(Request $request)
     {
-        //
-        return view('ManageKAFAActivities.guardianActivity');
+        $search = $request->input('search');
+
+        // Retrieve records from the activities table, filtering by the search term if provided
+        $activities = Activity::when($search, function ($query, $search) {
+            return $query->where('activityName', 'like', '%' . $search . '%');
+        })->get();
+
+        // Pass the data to the view
+        return view('ManageKAFAActivities.guardianActivity', ['activities' => $activities]);
     }
 
-    /**
+
+    public function guardianViewActivity(Activity $activity)
+    {
+        // Pass the activity details to the view
+        return view('ManageKAFAActivities.guardianViewActivity', ['activity' => $activity]);
+    }
+
+
+     /**
      * Display a listing of the activity in teacher page.
      */
-    public function teacherManageActivity()
+    public function teacherManageActivity(Request $request)
     {
-        //
-        return view('ManageKAFAActivities.teacherActivity');
+        $search = $request->input('search');
+
+        // Retrieve records from the activities table, filtering by the search term if provided
+        $activities = Activity::when($search, function ($query, $search) {
+            return $query->where('activityName', 'like', '%' . $search . '%');
+        })->get();
+
+        // Pass the data to the view
+        return view('ManageKAFAActivities.teacherActivity', ['activities' => $activities]);
     }
+
+
+    public function teacherViewActivity(Activity $activity)
+    {
+        // Pass the activity details to the view
+        return view('ManageKAFAActivities.teacherViewActivity', ['activity' => $activity]);
+    }
+
+   
 
     /**
      * Show the form for creating a new resource.
