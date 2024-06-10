@@ -2,7 +2,10 @@
 @section('content')
 
 <div class="d-flex justify-content-end mb-3">
-    <a href="{{route('kafa.createActivity')}}" class="btn btn-primary text-white btn-sm mx-3">+ Activity</a>
+    <form action="{{ route('kafa.createActivity') }}" method="GET">
+        @csrf
+        <button type="submit" class="btn btn-primary text-white btn-sm mx-3">+ Activity</button>
+    </form>
 </div>
 
 <table class="table table-success rounded-4 w-100">
@@ -18,11 +21,15 @@
                 <td class="px-5">{{ $activity->activityName }}</td>
                 <td class="text-center">
                     <div class="btn-group" role="group">
-                            <a href="{{route('kafa.viewActivity', $activity->id)}}" class="btn btn-info btn-sm"><i class="fas fa-eye" title="View"></i> View</a>
-
-                        <a href="{{ route('kafa.editActivity', $activity->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit" title="Edit"></i> Edit</a>
-                        <a href="{{ route('kafa.deleteActivity', $activity->id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this activity?')">
-                            <i class="fas fa-trash" title="Delete"></i> Delete</a>
+                        <a href="{{ route('kafa.viewActivity', $activity->id) }}" class="btn btn-info btn-sm mx-3 rounded-pill"><i class="fas fa-eye" title="View"></i> View</a>
+                        <a href="{{ route('kafa.editActivity', $activity->id) }}" class="btn btn-warning btn-sm mx-3 rounded-pill"><i class="fas fa-edit" title="Edit"></i> Edit</a>
+                        <form action="{{ route('kafa.deleteActivity', $activity->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm mx-3 rounded-pill" onclick="return confirm('Are you sure you want to delete this activity?')">
+                                <i class="fas fa-trash" title="Delete"></i> Delete
+                            </button>
+                        </form>
                     </div>
                 </td>
             </tr>

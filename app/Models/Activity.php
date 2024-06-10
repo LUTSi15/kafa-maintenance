@@ -10,7 +10,7 @@ class Activity extends Model
     use HasFactory;
 
     protected $fillable = [
-        'activityName', // Add name of activityName  field
+        'activityName', // Add name of activityName field
         'dateStart', // Add dateStart field
         'dateEnd', // Add dateEnd field
         'timeStart', // Add timeStart field
@@ -21,10 +21,12 @@ class Activity extends Model
         'description', // Add description field
         'status', // Add status field
         'feedback', // Add feedback field
+        'kafa_id', // Add kafa_id field
     ]; 
 
-    public function kafa(){
-
+    public function kafa()
+    {
         return $this->belongsTo(Kafa::class);
     }
 }
+

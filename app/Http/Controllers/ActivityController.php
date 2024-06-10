@@ -20,6 +20,7 @@ class ActivityController extends Controller
         return view('ManageKAFAActivities.kafaActivity', ['activities' => $activities]);
     }
 
+
  // ActivityController.php
 
     public function kafaViewActivity(Activity $activity)
@@ -32,7 +33,7 @@ class ActivityController extends Controller
     public function kafaCreateActivity()
     {
         //
-        return view('ManageKAFAActivities.kafaAddActivity');
+        return view('ManageKAFAActivities.kafaCreateActivity');
     }
 
     public function kafaEditActivity($id)
@@ -48,6 +49,29 @@ class ActivityController extends Controller
     
         // Pass the activity details to the view for editing
         return view('ManageKAFAActivities.kafaEditActivity', ['activity' => $activity]);
+    }
+
+    public function kafaStoreActivity(Request $request)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'activityName' => 'required|string|max:255',
+            'venue' => 'required|string|max:255',
+            'dateStart' => 'required|date',
+            'dateEnd' => 'required|date|after_or_equal:dateStart',
+            'timeStart' => 'required|date_format:H:i',
+            'timeEnd' => 'required|date_format:H:i|after:timeStart',
+            'attendees' => 'required|string|max:255',
+            'organizerName' => 'required|string|max:255',
+            'description' => 'required|string',
+            'kafa_id' => 'required|exists:kafas,id',
+    ]);
+
+        // Create a new activity record with the validated data
+        Activity::create($validatedData);
+
+        // Redirect back with a success message
+        return redirect()->route('kafa.manageActivity')->with('success', 'Activity created successfully.');
     }
 
     public function kafaDeleteActivity($id)
@@ -106,7 +130,7 @@ class ActivityController extends Controller
         // Redirect back with a success message
         return redirect()->route('kafa.manageActivity')->with('success', 'Activity updated successfully.');
     }
-    
+ 
 
 
     /**
@@ -121,20 +145,51 @@ class ActivityController extends Controller
     /**
      * Display a listing of the activity in guardian page.
      */
-    public function guardianManageActivity()
+    public function guardianManageActivity(Request $request)
     {
-        //
-        return view('ManageKAFAActivities.guardianActivity');
+        $search = $request->input('search');
+
+        // Retrieve records from the activities table, filtering by the search term if provided
+        $activities = Activity::when($search, function ($query, $search) {
+            return $query->where('activityName', 'like', '%' . $search . '%');
+        })->get();
+
+        // Pass the data to the view
+        return view('ManageKAFAActivities.guardianActivity', ['activities' => $activities]);
     }
 
-    /**
+
+    public function guardianViewActivity(Activity $activity)
+    {
+        // Pass the activity details to the view
+        return view('ManageKAFAActivities.guardianViewActivity', ['activity' => $activity]);
+    }
+
+
+     /**
      * Display a listing of the activity in teacher page.
      */
-    public function teacherManageActivity()
+    public function teacherManageActivity(Request $request)
     {
-        //
-        return view('ManageKAFAActivities.teacherActivity');
+        $search = $request->input('search');
+
+        // Retrieve records from the activities table, filtering by the search term if provided
+        $activities = Activity::when($search, function ($query, $search) {
+            return $query->where('activityName', 'like', '%' . $search . '%');
+        })->get();
+
+        // Pass the data to the view
+        return view('ManageKAFAActivities.teacherActivity', ['activities' => $activities]);
     }
+
+
+    public function teacherViewActivity(Activity $activity)
+    {
+        // Pass the activity details to the view
+        return view('ManageKAFAActivities.teacherViewActivity', ['activity' => $activity]);
+    }
+
+   
 
     /**
      * Show the form for creating a new resource.
