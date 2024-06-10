@@ -29,16 +29,19 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(ActivityController::class)->middleware('auth')->group(function () {
     Route::get('/kafa/manageActivity', 'kafaManageActivity')->name('kafa.manageActivity');
-    Route::get('/muip/manageActivity', 'muipManageActivity')->name('muip.manageActivity');
-    Route::get('/guardian/manageActivity', 'guardianManageActivity')->name('guardian.manageActivity');
-    Route::get('/teacher/manageActivity', 'teacherManageActivity')->name('teacher.manageActivity');
     Route::get('/kafa/createActivity', 'kafaCreateActivity')->name('kafa.createActivity');
+
+    Route::post('/kafa/storeActivity', 'kafaStoreActivity')->name('kafa.storeActivity'); // Use POST method for storing activity
     Route::get('/kafa/editActivity/{id}', 'kafaEditActivity')->name('kafa.editActivity');
     Route::put('/kafa/updateActivity/{activity}', 'kafaUpdateActivity')->name('kafa.updateActivity'); // Change to PUT method
     Route::delete('/kafa/deleteActivity/{id}', 'kafaDeleteActivity')->name('kafa.deleteActivity'); // Change to DELETE method
     Route::get('/kafa/viewActivity/{activity}', 'kafaViewActivity')->name('kafa.viewActivity');
+    
+    Route::get('/muip/manageActivity', 'muipManageActivity')->name('muip.manageActivity');
+    
     Route::get('/guardian/manageActivity', 'guardianManageActivity')->name('guardian.manageActivity');
     Route::get('/guardian/viewActivity/{activity}', 'guardianViewActivity')->name('guardian.viewActivity');
+    
     Route::get('/teacher/manageActivity', 'teacherManageActivity')->name('teacher.manageActivity');
     Route::get('/teacher/viewActivity/{activity}', 'teacherViewActivity')->name('teacher.viewActivity');
 });
