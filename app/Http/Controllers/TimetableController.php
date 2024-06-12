@@ -10,9 +10,22 @@ class TimetableController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function teacherviewtimetable()
     {
-        //
+        // Return the data to the view
+        return view('ManageTimetable.TeacherViewTimetable');
+    }
+
+    public function guardianviewtimetable()
+    {
+        // Return the data to the view
+        return view('ManageTimetable.ParentsViewTimetable');
+    }
+
+    public function kafaviewtimetable()
+    {
+        // Return the data to the view
+        return view('ManageTimetable.KAFAViewTimetable');
     }
 
     /**

@@ -38,11 +38,10 @@
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Activity</span>
                 <li>
-                    <form method="" action="" class="d-inline">
-                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
-                            <i class="fas fa-table"></i><span class="item"> Class Timetable</span>
-                        </button>
-                    </form>
+                    <a href="{{ route('teacher.viewTimetable') }}" class="nav-link" style="color: inherit;">
+                        <i class="fas fa-table"></i><span class="item"> Class Timetable</span>
+                    </a>
+                    
                 </li>
                 <li>
                     <a href="{{ route('teacher.listStudent') }}" class="nav-link" style="color: inherit;">

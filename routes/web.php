@@ -4,6 +4,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StudentResultController;
+use App\Http\Controllers\TimetableController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -65,6 +66,12 @@ Route::controller(ReportController::class)->middleware('auth')->group(function (
 
 Route::controller(StudentResultController::class)->middleware('auth')->group(function () {
     Route::get('/teacher/listStudent', 'teacherlistStudent')->name('teacher.listStudent');
+});
+
+Route::controller(TimetableController::class)->middleware('auth')->group(function () {
+    Route::get('/teacher/viewTimetable', 'teacherviewtimetable')->name('teacher.viewTimetable');
+    Route::get('/guardian/viewTimetable', 'guardianviewtimetable')->name('guardian.viewTimetable');
+    Route::get('/kafa/viewTimetable', 'kafaviewtimetable')->name('kafa.viewTimetable');
 });
 
 require __DIR__.'/auth.php';
