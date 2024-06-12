@@ -7,6 +7,7 @@
             </div>
             <div class="card-body">
                 <form>
+                     <!-- Activity Name -->
                     <div class="row mb-3">
                         <label for="activityName" class="col-sm-2 col-form-label text-center">Activity Name</label>
                         <div class="col-sm-10">
@@ -14,12 +15,14 @@
                                 value="{{$activity->activityName}}">
                         </div>
                     </div>
+                         <!-- Venue -->
                     <div class="row mb-3">
                         <label for="venue" class="col-sm-2 col-form-label text-center">Venue</label>
                         <div class="col-sm-10">
                             <input type="text" readonly class="form-control" id="venue" value="{{$activity->venue}}">
                         </div>
                     </div>
+                        <!-- Date and Time -->
                     <div class="row mb-3">
                         <label for="dateStart" class="col-sm-2 col-form-label text-center">Date</label>
                         <div class="col-sm-4">
@@ -34,6 +37,7 @@
                             <input type="time" readonly class="form-control" id="timeEnd" value="{{$activity->timeEnd}}">
                         </div>
                     </div>
+                         <!-- Attendees -->
                     <div class="row mb-3">
                         <label for="attendees" class="col-sm-2 col-form-label text-center">Attendees</label>
                         <div class="col-sm-10">
@@ -41,6 +45,7 @@
                                 value="{{$activity->attendees}}">
                         </div>
                     </div>
+                         <!-- People In Charge -->
                     <div class="row mb-3">
                         <label for="organizerName" class="col-sm-2 col-form-label text-center">People In Charge</label>
                         <div class="col-sm-10">
@@ -48,12 +53,14 @@
                                 value="{{$activity->organizerName}}">
                         </div>
                     </div>
+                        <!-- Description -->
                     <div class="row mb-3">
                         <label for="description" class="col-sm-2 col-form-label text-center">Description</label>
                         <div class="col-sm-10">
                             <textarea readonly class="form-control" id="description" rows="3">{{$activity->description}}</textarea>
                         </div>
                     </div>
+                        <!-- Feedback -->
                     <div class="row mb-3">
                         <label for="feedback" class="col-sm-2 col-form-label text-center">Feedback</label>
                         <div class="col-sm-10">
@@ -62,6 +69,7 @@
                     </div>
                 </form>
 
+                <!-- Back Button -->
                 <div class="row">
                     <form method="GET" action="{{ route('guardian.manageActivity') }}">
                         <div class="col-sm-10 offset-sm-2">
