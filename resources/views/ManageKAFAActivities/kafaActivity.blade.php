@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="d-flex justify-content-end mb-3">
-    <form action="{{ route('kafa.createActivity') }}" method="GET">
+    <form action="{{ route('kafa.addActivity') }}" method="GET">
         @csrf
         <button type="submit" class="btn btn-primary text-white btn-sm mx-3">+ Activity</button>
     </form>
