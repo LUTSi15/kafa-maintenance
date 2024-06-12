@@ -30,7 +30,6 @@ Route::middleware('auth')->group(function () {
 Route::controller(ActivityController::class)->middleware('auth')->group(function () {
     Route::get('/kafa/manageActivity', 'kafaManageActivity')->name('kafa.manageActivity');
     Route::get('/kafa/createActivity', 'kafaCreateActivity')->name('kafa.createActivity');
-
     Route::post('/kafa/storeActivity', 'kafaStoreActivity')->name('kafa.storeActivity'); // Use POST method for storing activity
     Route::get('/kafa/editActivity/{id}', 'kafaEditActivity')->name('kafa.editActivity');
     Route::put('/kafa/updateActivity/{activity}', 'kafaUpdateActivity')->name('kafa.updateActivity'); // Change to PUT method
@@ -38,6 +37,11 @@ Route::controller(ActivityController::class)->middleware('auth')->group(function
     Route::get('/kafa/viewActivity/{activity}', 'kafaViewActivity')->name('kafa.viewActivity');
     
     Route::get('/muip/manageActivity', 'muipManageActivity')->name('muip.manageActivity');
+    Route::get('/muip/viewActivity/{activity}', 'muipViewActivity')->name('muip.viewActivity');
+    Route::get('/muip/approveActivity', 'muipApproveActivity')->name('muip.approveActivity');
+    Route::post('/muip/approveActivity/{id}', 'approveActivity')->name('muip.approveActivityAction');
+    Route::delete('/muip/rejectActivity/{id}', 'rejectActivity')->name('muip.rejectActivityAction');
+
     
     Route::get('/guardian/manageActivity', 'guardianManageActivity')->name('guardian.manageActivity');
     Route::get('/guardian/viewActivity/{activity}', 'guardianViewActivity')->name('guardian.viewActivity');

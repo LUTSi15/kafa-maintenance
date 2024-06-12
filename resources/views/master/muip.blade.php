@@ -38,14 +38,14 @@
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Activity</span>
                 <li>
-                    <form method="" action="" class="d-inline">
+                <form method="GET" action="{{route('muip.approveActivity')}}" class="d-inline">
                         <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
                             <i class="fas fa-table"></i><span class="item"> Approve Activity</span>
                         </button>
                     </form>
                 </li>
                 <li>
-                    <form method="" action="" class="d-inline">
+                <form method="GET" action="{{route('muip.manageActivity')}}" class="d-inline">
                         <button type="submit" class="btn btn-link nav-link p-0 active" style="color: inherit;">
                             <i class="fas fa-pencil"></i><span class="item"> Activity</span>
                         </button>
