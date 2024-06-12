@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(ActivityController::class)->middleware('auth')->group(function () {
     Route::get('/kafa/manageActivity', 'kafaManageActivity')->name('kafa.manageActivity');
-    Route::get('/kafa/createActivity', 'kafaCreateActivity')->name('kafa.createActivity');
+    Route::get('/kafa/addActivity', 'kafaAddActivity')->name('kafa.addActivity');
     Route::post('/kafa/storeActivity', 'kafaStoreActivity')->name('kafa.storeActivity'); // Use POST method for storing activity
     Route::get('/kafa/editActivity/{id}', 'kafaEditActivity')->name('kafa.editActivity');
     Route::put('/kafa/updateActivity/{activity}', 'kafaUpdateActivity')->name('kafa.updateActivity'); // Change to PUT method
