@@ -30,10 +30,10 @@ class ActivityController extends Controller
     }
 
 
-    public function kafaCreateActivity()
+    public function kafaAddActivity()
     {
         //
-        return view('ManageKAFAActivities.kafaCreateActivity');
+        return view('ManageKAFAActivities.kafaAddActivity');
     }
 
     public function kafaEditActivity($id)
