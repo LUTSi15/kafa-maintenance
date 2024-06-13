@@ -2,6 +2,12 @@
 @section('content')
 
 <div class="container mt-5">
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <h1 class="mb-4">Student Results</h1>
     <table class="table table-success rounded-4 w-100">
         <thead class="table-secondary">
@@ -26,9 +32,11 @@
                     </td>
                     <td class="text-center">
                         <div class="d-flex justify-content-center">
-                            <button class="btn btn-link mx-1"><i class="fas fa-plus me-2"></i>Add results</button>
-                            <button class="btn btn-link mx-1"><i class="fa-solid fa-pen-to-square me-2"></i>Edit</button>
-                            <button class="btn btn-link mx-1"><i class="fas fa-eye me-2"></i>View</button>
+                            <button class="btn btn-link mx-1"><a href="{{ route('teacher.addResult',['studentID' => $student->id]) }}"><i class="fas fa-plus me-2"></i>Add results</a>
+                            
+                            </button>
+                            <button class="btn btn-link mx-1"><a href=""><i class="fa-solid fa-pen-to-square me-2"></i>Edit</button>
+                            <button class="btn btn-link mx-1"><a href="{{ route('teacher.viewResult',['studentID' => $student->id]) }}"><i class="fas fa-eye me-2"></i>View</button>
                         </div>
                     </td>
                 </tr>

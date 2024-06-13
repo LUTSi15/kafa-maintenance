@@ -43,7 +43,12 @@ Route::controller(ReportController::class)->middleware('auth')->group(function (
 });
 
 Route::controller(StudentResultController::class)->middleware('auth')->group(function () {
-    Route::get('/teacher/listStudent', 'teacherlistStudent')->name('teacher.listStudent');
+    Route::get('/teacher/listStudent', 'teacherListStudent')->name('teacher.listStudent');
+    Route::get('/teacher/addResult/{studentID}', 'teacherAddResult')->name('teacher.addResult');
+    Route::get('/teacher/viewResult/{studentID}', 'teacherViewResult')->name('teacher.viewResult');
+    Route::get('/teacher/editResult/{studentID}', 'teacherEditResult')->name('teacher.editResult');
+    Route::get('/teacher/filterResult', 'teacherFilterResult')->name('teacher.filterResult');
+    Route::post('/teacher/manage-result', 'store')->name('teacher.storeResult');
 });
 
 require __DIR__.'/auth.php';
