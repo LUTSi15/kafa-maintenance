@@ -49,7 +49,7 @@
                     </a>
                 </li>
                 <li>
-                    <form method="" action="" class="d-inline">
+                    <form method="GET" action="{{ route('teacher.manageActivity') }}" class="d-inline">
                         <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
                             <i class="fas fa-pencil"></i><span class="item"> Activity</span>
                         </button>
