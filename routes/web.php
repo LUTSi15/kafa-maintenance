@@ -75,6 +75,9 @@ Route::controller(TimetableController::class)->middleware('auth')->group(functio
     Route::get('/teacher/viewTimetable', 'teacherviewtimetable')->name('teacher.viewTimetable');
     Route::get('/guardian/viewTimetable', 'guardianviewtimetable')->name('guardian.viewTimetable');
     Route::get('/kafa/viewTimetable', 'kafaviewtimetable')->name('kafa.viewTimetable');
+    Route::get('/kafa/addTimetable', 'kafaaddtimetable')->name('kafa.addTimetable');
+    Route::get('/kafa/editTimetable', 'kafaedittimetable')->name('kafa.editTimetable');
+    Route::resource('timetable', TimetableController::class);
 });
 
 require __DIR__.'/auth.php';
