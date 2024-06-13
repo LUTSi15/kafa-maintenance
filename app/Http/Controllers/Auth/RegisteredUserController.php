@@ -67,6 +67,21 @@ class RegisteredUserController extends Controller
 
     Auth::login($user);
 
-    return redirect(route('dashboard'));
+    if($request->user()->role == 'kafa')
+        {
+            return redirect(route('kafa.manageActivity'));
+        }
+        elseif($request->user()->role == 'muip')
+        {
+            return redirect(route('muip.manageActivity'));
+        }
+        elseif($request->user()->role == 'guardian')
+        {
+            return redirect(route('guardian.manageActivity'));
+        }
+        elseif($request->user()->role == 'teacher')
+        {
+            return redirect(route('teacher.manageActivity'));
+        }
 }
 }

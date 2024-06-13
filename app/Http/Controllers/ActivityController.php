@@ -212,14 +212,14 @@ class ActivityController extends Controller
         })->get(); //Get the filtered records
 
         // Pass the data to the view
-        return view('ManageKAFAActivities.guardianActivity', ['activities' => $activities]);
+        return view('ManageKAFAActivities.ParentsActivity', ['activities' => $activities]);
     }
 
 
     public function guardianViewActivity(Activity $activity) //Page for activity details
     {
         // Pass the activity details to the view
-        return view('ManageKAFAActivities.guardianViewActivity', ['activity' => $activity]);
+        return view('ManageKAFAActivities.ParentsViewActivity', ['activity' => $activity]);
     }
 
 
