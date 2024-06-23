@@ -43,7 +43,7 @@ class StudentResultController extends Controller
         return view('ManageStudentResults.TeacherManageResult', compact('student', 'classroom', 'subjects', 'results', 'mode'));
     }
 
-    //Show the form to add a new result.
+    //Show the form to edit a result.
     public function teacherEditResult($studentID)
     {
         // Fetch the student by ID
