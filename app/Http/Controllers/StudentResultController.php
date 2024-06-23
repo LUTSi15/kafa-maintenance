@@ -67,14 +67,45 @@ class StudentResultController extends Controller
 
     //Store a newly created resource in storage.
     public function store(Request $request)
-    {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'marks.*' => 'required|integer|min:0|max:100',
-            'comments' => 'required|string|max:255',
-        ]);
+{
+    // Validate the request data
+    $validatedData = $request->validate([
+        'marks.*' => 'required|integer|min:0|max:100',
+        'comments' => 'required|string|max:255',
+    ]);
 
-        // Store the results 
+    if ($request->has('edit')) {
+        // Update existing results
+        foreach ($request->marks as $subject => $mark) {
+            $result = Result::where('student_id', $request->studentId)
+                            ->where('subject_id', $subject)
+                            ->first();
+            if ($result) {
+                $result->update([
+                    'marks' => $mark,
+                    'grade' => $this->calculateGrade($mark),
+                    'year' => $request->year,
+                    'typeOfExamination' => $request->typeOfExamination,
+                    'comment' => $request->comments
+                ]);
+            } else {
+                // If no existing result found, create a new one
+                Result::create([
+                    'student_id' => $request->studentId,
+                    'subject_id' => $subject,
+                    'marks' => $mark,
+                    'grade' => $this->calculateGrade($mark),
+                    'year' => $request->year,
+                    'typeOfExamination' => $request->typeOfExamination,
+                    'comment' => $request->comments
+                ]);
+            }
+        }
+
+        // Redirect back with success message
+        return redirect()->route('teacher.listStudent')->with('success', 'Results updated successfully.');
+    } else {
+        // Store new results
         foreach ($request->marks as $subject => $mark) {
             Result::create([
                 'student_id' => $request->studentId,
@@ -87,10 +118,11 @@ class StudentResultController extends Controller
             ]);
         }
 
-        // Optionally, store the comments
         // Redirect back with success message
         return redirect()->route('teacher.listStudent')->with('success', 'Results added successfully.');
     }
+}
+
 
     //Display student's result.
     public function teacherViewResult($studentID)

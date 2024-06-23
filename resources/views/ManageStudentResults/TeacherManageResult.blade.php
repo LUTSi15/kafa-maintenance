@@ -156,8 +156,12 @@
                 <textarea name="comments" class="form-control" rows="3" required></textarea>
             </div>
             <div class="col-md-3 text-bottom">
-<button type="submit" class="btn btn-success">Submit</button><a href="{{route('teacher.listStudent')}}" class="btn btn-danger">Cancel</a>
-
+                @if ($mode == 0)
+                    <button type="submit" class="btn btn-success">Submit</button><a href="{{route('teacher.listStudent')}}" class="btn btn-danger">Cancel</a>
+                @else  
+                    <input type=hidden name="edit" value="edit" />
+                    <button type="submit" class="btn btn-success">Submit</button><a href="{{route('teacher.listStudent')}}" class="btn btn-danger">Cancel</a>
+                @endif
             </div>
         </div>
     </form>
