@@ -74,8 +74,10 @@
                                         </div>
                                         <div class="col-md-6">
                                             <select class="form-select form-select-sm" name="typeOfExamination" id="typeOfExamination">
+                                                
                                                 <option value="Mid-year Examination">Mid-year Examination</option>
                                                 <option value="Final-year Examination">Final-year Examination</option>
+                                                
                                             </select>
                                         </div>
                                     </div>
@@ -109,22 +111,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($results as $result)
-                            <tr>
-                                <td>
-                                    @php
-                                        $subject = \App\Models\Subject::find($result->subject_id);
-                                    @endphp
-                                    {{ $subject->subjectName }}
-                                </td>
-                                <td>
-                                    <input type="number" name="marks[{{ $subject->id }}]" value="{{ $result->marks }}" class="form-control" required>
-                                </td>
-                                <td>
-                                    <input type="text" name="grades[{{ $subject->id }}]" value="{{ $result->grade }}" class="form-control" readonly>
-                                </td>
-                            </tr>
-                        @endforeach
+                        @if ($mode != 0) 
+                            @foreach($results as $result)
+                                <tr>
+                                    <td>
+                                        @php
+                                            $subjectEdit = \App\Models\Subject::find($result->subject_id);
+                                        @endphp
+                                        {{ $subjectEdit->subjectName }}
+                                    </td>
+                                    <td>
+                                        <input type="number" name="marks[{{ $subjectEdit->id }}]" value="{{ $result->marks }}" class="form-control" required>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="grades[{{ $subjectEdit->id }}]" value="{{ $result->grade }}" class="form-control" readonly>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            @foreach ($subjects as $subject)
+                                <tr>
+                                    <td>
+                                        {{ $subject->subjectName }}
+                                    </td>
+                                    <td>
+                                        <input type="number" name="marks[{{ $subject->id }}]" value="" class="form-control" required>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="grades[{{ $subject->id }}]" value="" class="form-control" readonly>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                        
                     </tbody>
                 </table>
             </div>
@@ -137,7 +156,7 @@
                 <textarea name="comments" class="form-control" rows="3" required></textarea>
             </div>
             <div class="col-md-3 text-bottom">
-<button type="submit" class="btn btn-success">Submit</button><a href="#" class="btn btn-danger">Cancel</a>
+<button type="submit" class="btn btn-success">Submit</button><a href="{{route('teacher.listStudent')}}" class="btn btn-danger">Cancel</a>
 
             </div>
         </div>

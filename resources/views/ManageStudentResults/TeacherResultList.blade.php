@@ -35,7 +35,7 @@
                             <button class="btn btn-link mx-1"><a href="{{ route('teacher.addResult',['studentID' => $student->id]) }}"><i class="fas fa-plus me-2"></i>Add results</a>
                             
                             </button>
-                            <button class="btn btn-link mx-1"><a href=""><i class="fa-solid fa-pen-to-square me-2"></i>Edit</button>
+                            <button class="btn btn-link mx-1"><a href="{{ route('teacher.editResult',['studentID' => $student->id]) }}"><i class="fa-solid fa-pen-to-square me-2"></i>Edit</button>
                             <button class="btn btn-link mx-1"><a href="{{ route('teacher.viewResult',['studentID' => $student->id]) }}"><i class="fas fa-eye me-2"></i>View</button>
                         </div>
                     </td>
