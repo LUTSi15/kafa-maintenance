@@ -74,8 +74,10 @@
                                         </div>
                                         <div class="col-md-6">
                                             <select class="form-select form-select-sm" name="typeOfExamination" id="typeOfExamination">
+                                                
                                                 <option value="Mid-year Examination">Mid-year Examination</option>
                                                 <option value="Final-year Examination">Final-year Examination</option>
+                                                
                                             </select>
                                         </div>
                                     </div>
@@ -117,12 +119,21 @@
                                     @endphp
                                     {{ $subject->subjectName }}
                                 </td>
-                                <td>
-                                    <input type="number" name="marks[{{ $subject->id }}]" value="{{ $result->marks }}" class="form-control" required>
-                                </td>
-                                <td>
-                                    <input type="text" name="grades[{{ $subject->id }}]" value="{{ $result->grade }}" class="form-control" readonly>
-                                </td>
+                                @if ($mode != 0)
+                                    <td>
+                                        <input type="number" name="marks[{{ $subject->id }}]" value="{{ $result->marks }}" class="form-control" required>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="grades[{{ $subject->id }}]" value="{{ $result->grade }}" class="form-control" readonly>
+                                    </td>
+                                @else
+                                    <td>
+                                        <input type="number" name="marks[{{ $subject->id }}]" value="" class="form-control" required>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="grades[{{ $subject->id }}]" value="" class="form-control" readonly>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

@@ -22,7 +22,6 @@ class StudentResultController extends Controller
         return view('ManageStudentResults.TeacherResultList', ['students' => $students]);
     }
     
-
     //Show the form to add a new result.
     public function teacherAddResult($studentID)
     {
@@ -38,8 +37,10 @@ class StudentResultController extends Controller
         // Fetch the result
         $results = Result::where('student_id', $studentID)->get();
 
+        $mode = 0; //means adding mode
+
         // Pass the student and classroom data to the view
-        return view('ManageStudentResults.TeacherManageResult', compact('student', 'classroom', 'subjects', 'results'));
+        return view('ManageStudentResults.TeacherManageResult', compact('student', 'classroom', 'subjects', 'results', 'mode'));
     }
 
     //Show the form to add a new result.
@@ -53,12 +54,15 @@ class StudentResultController extends Controller
         
         // Fetch the classroom information
         $classroom = Classroom::findOrFail($student->classroom_id);
+
+        // Fetch the result
+        $results = Result::where('student_id', $studentID)->get();
         
-        //Set edit flag
-        $edit = true;
+        //means editing
+        $mode = 1;
         
         // Pass the student and classroom data to the view
-        return view('ManageStudentResults.TeacherManageResult', compact('student', 'classroom', 'subjects', 'edit'));
+        return view('ManageStudentResults.TeacherManageResult', compact('results', 'student', 'classroom', 'subjects', 'mode'));
     }
 
     //Store a newly created resource in storage.
