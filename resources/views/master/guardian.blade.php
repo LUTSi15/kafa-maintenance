@@ -33,57 +33,23 @@
 			</a>
 		</div>
 		<!-- End Brand -->
-
+	
 		<div class="menu position-sticky py-3 px-5">
 			<ul class="list-unstyled text-white py-2">
 				<span class="fw-bold h5">Activity</span>
 				<li>
-					<a href="{{ route('guardian.viewTimetable') }}" class="nav-link" style="color: inherit;">
-						<i class="fas fa-table"></i><span class="item"> Class Timetable</span>
-
-				</li>
-				<li>
-					<form method="" action="" class="d-inline">
-						<button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
-							<i class="fas fa-chart-line"></i><span class="item"> Student Result</span>
-						</button>
-					</form>
-				</li>
-				<li>
-					<form method="GET" action="{{ route('guardian.manageActivity') }}" class="d-inline">
-						<button type="submit" class="btn btn-link nav-link p-0 active" style="color: inherit;">
-							<i class="fas fa-pencil"></i><span class="item"> Activity</span>
-						</button>
-					</form>
+					<a href="{{ route('guardian.manageActivity') }}" class="nav-link {{ Request::routeIs('guardian.manageActivity') ? 'active' : '' }}" style="color: inherit;">
+						<i class="fas fa-chart-line"></i><span class="item"> Activity</span>
+					</a>
 				</li>
 			</ul>
-
-			<ul class="list-unstyled text-white py-2">
-				<span class="fw-bold h5">Children</span>
-				<li>
-					<form method="" action="" class="d-inline">
-						<button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
-							<i class="fas fa-book-open"></i><span class="item">Ahmad Kholid</span>
-						</button>
-					</form>
-				</li>
-				<li>
-					<form method="" action="" class="d-inline">
-						<button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
-							<i class="fas fa-book-open"></i><span class="item">Rizal Danial</span>
-						</button>
-					</form>
-				</li>
-			</ul>
-
+	
 			<ul class="list-unstyled text-white py-2">
 				<span class="fw-bold h5">Profile</span>
 				<li>
-					<form method="" action="" class="d-inline">
-						<button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
-							<i class="fas fa-user"></i><span class="item"> Profile</span>
-						</button>
-					</form>
+					<a href="{{ route('profile.edit') }}" class="nav-link {{ Request::routeIs('profile.edit') ? 'active' : '' }}" style="color: inherit;">
+						<i class="fas fa-user"></i><span class="item"> Profile</span>
+					</a>
 				</li>
 				<li>
 					<form method="POST" action="{{ route('logout') }}" class="d-inline">
@@ -94,10 +60,11 @@
 					</form>
 				</li>
 			</ul>
-
+	
 		</div>
-
+	
 	</nav>
+	
 	<!-- End Sidebar -->
 
 

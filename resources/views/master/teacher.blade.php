@@ -38,40 +38,21 @@
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Activity</span>
                 <li>
-                    <a href="{{ route('teacher.viewTimetable') }}" class="nav-link" style="color: inherit;">
-                        <i class="fas fa-table"></i><span class="item"> Class Timetable</span>
+                    <a href="{{ route('teacher.manageActivity') }}"
+                        class="nav-link {{ Request::routeIs('teacher.manageActivity') ? 'active' : '' }}"
+                        style="color: inherit;">
+                        <i class="fas fa-chart-line"></i><span class="item"> Activity</span>
                     </a>
-                    
-                </li>
-                <li>
-                    <a href="{{ route('teacher.listStudent') }}" class="nav-link" style="color: inherit;">
-                        <i class="fas fa-chart-line"></i><span class="item"> Student Result</span>
-                    </a>
-                </li>
-                <li>
-                    <form method="GET" action="{{ route('teacher.manageActivity') }}" class="d-inline">
-                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
-                            <i class="fas fa-pencil"></i><span class="item"> Activity</span>
-                        </button>
-                    </form>
-                </li>
-                <li>
-                    <form method="" action="" class="d-inline">
-                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
-                            <i class="fas fa-pencil"></i><span class="item"> Profile's List</span>
-                        </button>
-                    </form>
                 </li>
             </ul>
-            
+
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Profile</span>
                 <li>
-                    <form method="" action="" class="d-inline">
-                        <button type="submit" class="btn btn-link nav-link p-0" style="color: inherit;">
-                            <i class="fas fa-user"></i><span class="item"> Profile</span>
-                        </button>
-                    </form>
+                    <a href="{{ route('profile.edit') }}"
+                        class="nav-link {{ Request::routeIs('profile.edit') ? 'active' : '' }}" style="color: inherit;">
+                        <i class="fas fa-user"></i><span class="item"> Profile</span>
+                    </a>
                 </li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}" class="d-inline">
@@ -82,7 +63,6 @@
                     </form>
                 </li>
             </ul>
-            
         </div>
 
     </nav>
