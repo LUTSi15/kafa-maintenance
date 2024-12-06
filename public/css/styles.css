@@ -141,7 +141,7 @@ li {
     border-radius: 5px;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     background-color: #638E6B;
-    padding: 15px 15px;
+    padding: 15px 15px 15px 15px;
     transition: all 0.5s ease-in-out;
   }
   .sidebar-sticky {

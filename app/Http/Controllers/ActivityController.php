@@ -204,12 +204,14 @@ class ActivityController extends Controller
      */
     public function guardianManageActivity(Request $request) //Page for view activity list
     {
-        $search = $request->input('search'); //Retrieve the search term from the request
+        // $search = $request->input('search'); //Retrieve the search term from the request
 
-        // Retrieve records from the activities table, filtering by the search term if provided
-        $activities = Activity::when($search, function ($query, $search) {
-            return $query->where('activityName', 'like', '%' . $search . '%'); //Filter by activity name
-        })->get(); //Get the filtered records
+        // // Retrieve records from the activities table, filtering by the search term if provided
+        // $activities = Activity::when($search, function ($query, $search) {
+        //     return $query->where('activityName', 'like', '%' . $search . '%'); //Filter by activity name
+        // })->get(); //Get the filtered records
+
+        $activities = Activity::all();
 
         // Pass the data to the view
         return view('ManageKAFAActivities.ParentsActivity', ['activities' => $activities]);
