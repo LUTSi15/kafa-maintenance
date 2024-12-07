@@ -43,12 +43,6 @@
                         <i class="fas fa-book-open"></i><span class="item"> Activity</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('kafa.profileList') }}"
-                        class="nav-link {{ Request::routeIs('kafa.profileList') ? 'active' : '' }}" style="color: inherit;">
-                        <i class="fas fa-book-open"></i><span class="item"> List of Profile</span>
-                    </a>
-                </li>
             </ul>
     
             <ul class="list-unstyled text-white py-2">
