@@ -4,10 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
-use App\Models\Classroom;
-use App\Models\Result;
-use App\Models\Student;
-use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -17,20 +13,30 @@ class ReportController extends Controller
      */
     public function kafaListReportActivity()
     {
-        // Fetch all records from the 'activities' table
-        $activities = Activity::all();
+        // Fetch activities with status "Approved" or "Finished"
+        $activities = Activity::whereIn('status', ['Approved', 'Finished'])->get();
 
-        // Return the data to KAFAListReportActivity page with list of activities
-        return view('ManageReportsAndActivities.KAFAListReportActivity')->with('activities', $activities);
+        $breadcrumbs = [
+            ['name' => 'List of Report Activities', 'url' => route('kafa.listReportActivity')],
+        ];
+
+        // Return the data to KAFAListReportActivity page with filtered list of activities
+        return view('ManageReportsAndActivities.KAFAListReportActivity', compact('activities', 'breadcrumbs'));
     }
+
 
     /**
      * Show the detail of the report activity.
      */
     public function kafaViewReportActivity(Activity $activity)
     {
-        // Return the data to KAFAListReportActivity page with list of activities
-        return view('ManageReportsAndActivities.KAFAViewReportActivity')->with('activity', $activity);
+        $breadcrumbs = [
+            ['name' => 'List of Report Activities', 'url' => route('kafa.listReportActivity')],
+            ['name' => 'Detail Report Activities', 'url' => route('kafa.viewReportActivity', $activity->id)],
+        ];
+
+        // Return the data to KAFAViewReportActivity page with the activity and breadcrumbs
+        return view('ManageReportsAndActivities.KAFAViewReportActivity', compact('activity', 'breadcrumbs'));
     }
 
     /**
@@ -38,8 +44,13 @@ class ReportController extends Controller
      */
     public function KAFACreateReportActivity(Activity $activity)
     {
-        // Return the data to KAFAViewReportActivity page with list of activities
-        return view('ManageReportsAndActivities.KAFACreateReportActivity')->with('activity', $activity);
+        $breadcrumbs = [
+            ['name' => 'List of Report Activities', 'url' => route('kafa.listReportActivity')],
+            ['name' => 'Create Report Activity', 'url' => route('kafa.createReportActivity', $activity->id)],
+        ];
+
+        // Return the data to KAFACreateReportActivity page with the activity and breadcrumbs
+        return view('ManageReportsAndActivities.KAFACreateReportActivity', compact('activity', 'breadcrumbs'));
     }
 
     /**
@@ -47,7 +58,6 @@ class ReportController extends Controller
      */
     public function kafaUpdateReportActivity(Request $request, Activity $activity)
     {
-        // dd($request);
         // Validate the incoming request data
         $request->validate([
             'feedback' => 'string',
@@ -68,11 +78,15 @@ class ReportController extends Controller
      */
     public function muipListReportActivity()
     {
-        // Fetch all records from the 'activities' table
+        $breadcrumbs = [
+            ['name' => 'List of Report Activities', 'url' => route('muip.listReportActivity')],
+        ];
+
+        // Fetch all records from the 'activities' table where status is 'finished'
         $activities = Activity::where('status', 'finished')->get();
 
         // Return the data to MUIPListReportActivity page with list of activities
-        return view('ManageReportsAndActivities.MUIPListReportActivity')->with('activities', $activities);
+        return view('ManageReportsAndActivities.MUIPListReportActivity', compact('activities', 'breadcrumbs'));
     }
 
     /**
@@ -80,59 +94,12 @@ class ReportController extends Controller
      */
     public function muipViewReportActivity(Activity $activity)
     {
-        // Return the data to MUIPViewReportActivity page with list of activities
-        return view('ManageReportsAndActivities.MUIPViewReportActivity')->with('activity', $activity);
-    }
+        $breadcrumbs = [
+            ['name' => 'List of Report Activities', 'url' => route('muip.listReportActivity')],
+            ['name' => 'Detail Report Activities', 'url' => route('muip.viewReportActivity', $activity->id)],
+        ];
 
-    /**
-     * Display a listing of the activity.
-     */
-    public function muipListClassReport()
-    {
-        // Fetch all records from the 'activities' table
-        $classrooms = Classroom::all();
-
-        // Return the data to MUIPListClassReport page with list of classes
-        return view('ManageReportsAndActivities.MUIPManageAcademic')->with('classrooms', $classrooms);
-    }
-
-    public function muipClassAcademicReport(Classroom $classroom)
-    {
-        // Retrieve the students data where classroom_id matches the classroom's id, ordered by average_result in descending order
-        $students = Student::where('classroom_id', $classroom->id)
-            ->orderBy('averageResult', 'desc')
-            ->get();
-
-        // Prepare data for the chart
-        $studentNames = $students->pluck('studentName');
-        $averageResults = $students->pluck('averageResult');
-
-        // Return the data to MUIPClassAcademic page
-        return view('ManageReportsAndActivities.MUIPClassAcademic')
-            ->with('classroom', $classroom)
-            ->with('students', $students)
-            ->with('studentNames', $studentNames)
-            ->with('averageResults', $averageResults);
-    }
-
-    /**
-     * Show the detail of the report student.
-     */
-    public function muipStudentAcademicReport(Student $student, Classroom $classroom)
-    {
-        // Retrieve the result data where student_id matches the student's id
-        $results = Result::where('student_id', $student->id)
-            ->orderBy('subject_id', 'asc')
-            ->get()
-            ->keyBy('subject_id');
-
-        $subjects = Subject::orderBy('id', 'asc')->get();
-
-        // Return the data to MUIPStudentAcademic page with list of activities
-        return view('ManageReportsAndActivities.MUIPStudentAcademic')
-            ->with('student', $student)
-            ->with('classroom', $classroom)
-            ->with('subjects', $subjects)
-            ->with('results', $results);
+        // Return the data to MUIPViewReportActivity page with the activity and breadcrumbs
+        return view('ManageReportsAndActivities.MUIPViewReportActivity', compact('activity', 'breadcrumbs'));
     }
 }

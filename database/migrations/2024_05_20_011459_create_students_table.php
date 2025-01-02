@@ -14,15 +14,12 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->foreignId('guardian_id');
-            $table->foreignId('classroom_id');
-            $table->string('icNum');
             $table->string('studentName');
-            $table->string('gender');
-            $table->string('race');
-            $table->integer('age');
-            $table->date('birthDate');
-            $table->string('status');
-            $table->string('averageResult');
+            $table->string('icNum')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('race')->nullable();
+            $table->integer('age')->nullable();
+            $table->date('birthDate')->nullable();
             $table->timestamps();
         });
     }

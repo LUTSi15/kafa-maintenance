@@ -11,17 +11,18 @@ class Teacher extends Model
 
     protected $fillable = [
         'classroom_id', // Add classroom id field
-        'staff_id', // Add staff id field
+        'user_id', // Add user id field
         'kafaName', // Add Name of Kafa field
+        'phoneNum', // Add phone field
+        'icNum', // Add ic_number field
+        'address', // Add address field
+        'gender', // Add gender field
+        'race', // Add race field
+        'age', // Add age field
     ];
 
     public function user(){
 
         return $this->belongsTo(User::class);
-    }
-
-    public function classroom(){
-
-        return $this->belongsTo(Classroom::class);
     }
 }

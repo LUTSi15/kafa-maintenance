@@ -8,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/fontawesome.css">
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/bootstrapKafa.css">
+    <link rel="stylesheet" href="/css/stylesKafa.css">
     <title>KAFA System</title>
 </head>
 
@@ -17,7 +17,9 @@
     <!-- Navbar -->
     <nav id="main-navbar" class="navbar navbar-light bg-white border-bottom">
         <div class="container-fluid">
-            <h4 class="mt-2">KAFA Management System</h4>
+            <h4 class="mt-2">
+                Hi {{ Auth::user()->username }}, you login as {{ Auth::user()->role }}
+            </h4>
         </div>
     </nav>
     <!-- End Navbar -->
@@ -33,36 +35,74 @@
             </a>
         </div>
         <!-- End Brand -->
-    
+
         <div class="menu position-sticky py-3 px-5">
+            <ul class="list-unstyled text-white py-2">
+                <span class="fw-bold h5">Profile</span>
+                <li>
+                    <a href="{{ route('kafa.listParents') }}"
+                        class="nav-link {{ Request::routeIs('kafa.listParents') ? 'active' : '' }}"
+                        style="color: inherit;">
+                        <i class="fas fa-book-open"></i><span class="item"> List of Parent</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('listStudents') }}"
+                        class="nav-link {{ Request::routeIs('listStudents') ? 'active' : '' }}" style="color: inherit;">
+                        <i class="fas fa-book-open"></i><span class="item"> List of Student</span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled text-white py-2">
+                <span class="fw-bold h5">Registration</span>
+                <li>
+                    <a href="{{ route('kafa.registerParent') }}"
+                        class="nav-link {{ Request::routeIs('kafa.registerParent') ? 'active' : '' }}"
+                        style="color: inherit;">
+                        <i class="fas fa-book-open"></i><span class="item"> Create for acc Parents </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('kafa.registerTeacher') }}"
+                        class="nav-link {{ Request::routeIs('kafa.registerTeacher') ? 'active' : '' }}"
+                        style="color: inherit;">
+                        <i class="fas fa-book-open"></i><span class="item"> Create for acc Teacher </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('kafa.registerStudent') }}"
+                        class="nav-link {{ Request::routeIs('kafa.registerStudent') ? 'active' : '' }}"
+                        style="color: inherit;">
+                        <i class="fas fa-book-open"></i><span class="item"> Register Student</span>
+                    </a>
+                </li>
+            </ul>
+
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Activity</span>
                 <li>
                     <a href="{{ route('kafa.manageActivity') }}"
-                        class="nav-link {{ Request::routeIs('kafa.manageActivity') ? 'active' : '' }}" style="color: inherit;">
+                        class="nav-link {{ Request::routeIs('kafa.manageActivity') ? 'active' : '' }}"
+                        style="color: inherit;">
                         <i class="fas fa-book-open"></i><span class="item"> Activity</span>
                     </a>
                 </li>
             </ul>
-    
+
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Report</span>
                 <li>
                     <a href="{{ route('kafa.listReportActivity') }}"
-                        class="nav-link {{ Request::routeIs('kafa.listReportActivity') ? 'active' : '' }}" style="color: inherit;">
+                        class="nav-link {{ Request::routeIs('kafa.listReportActivity') ? 'active' : '' }}"
+                        style="color: inherit;">
                         <i class="fas fa-book-open"></i><span class="item"> Report Activity</span>
                     </a>
                 </li>
             </ul>
-    
+
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Profile</span>
-                <li>
-                    <a href="{{ route('profile.edit') }}"
-                        class="nav-link {{ Request::routeIs('profile.edit') ? 'active' : '' }}" style="color: inherit;">
-                        <i class="fas fa-user"></i><span class="item"> Profile</span>
-                    </a>
-                </li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}" class="d-inline">
                         @csrf
@@ -72,10 +112,10 @@
                     </form>
                 </li>
             </ul>
-    
+
         </div>
-    
-    </nav>    
+
+    </nav>
     <!-- End Sidebar -->
 
 
@@ -84,15 +124,22 @@
         <!-- Breadcrumb -->
         <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb" class="bg-white pt-1">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#"
-                        class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover">
-                        Home </a></li>
-                <li class="breadcrumb-item"><a href="#"
-                        class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover">
-                        About </a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="#"
-                        class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover">
-                        Staff </a></li>
+                @foreach ($breadcrumbs as $breadcrumb)
+                    @if (!$loop->last)
+                        <!-- Breadcrumb link -->
+                        <li class="breadcrumb-item">
+                            <a href="{{ $breadcrumb['url'] }}"
+                                class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover">
+                                {{ $breadcrumb['name'] }}
+                            </a>
+                        </li>
+                    @else
+                        <!-- Current page -->
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {{ $breadcrumb['name'] }}
+                        </li>
+                    @endif
+                @endforeach
             </ol>
         </nav>
         <!-- End Breadcrumb -->

@@ -22,13 +22,6 @@ class User extends Authenticatable
         'email', // Add email field
         'password', // Add password field
         'role', // Add role field
-        'phoneNum', // Add phone field
-        'icNum', // Add ic_number field
-        'address', // Add address field
-        'gender', // Add gender field
-        'race', // Add race field
-        'age', // Add age field
-        'status', // Add status field
     ];
 
     /**

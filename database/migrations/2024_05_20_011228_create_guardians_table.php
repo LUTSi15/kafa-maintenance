@@ -14,7 +14,13 @@ return new class extends Migration
         Schema::create('guardians', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('occupation');
+            $table->string('occupation')->nullable();
+            $table->string('phoneNum')->nullable();
+            $table->string('icNum')->nullable();
+            $table->string('address')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('race')->nullable();
+            $table->integer('age')->nullable();
             $table->timestamps();
         });
     }
