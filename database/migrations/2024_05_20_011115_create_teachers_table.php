@@ -14,9 +14,13 @@ return new class extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('classroom_id');
-            $table->string('staff_id');
-            $table->string('kafaName');
+            $table->string('kafaName')->nullable();
+            $table->string('phoneNum')->nullable();
+            $table->string('icNum')->nullable();
+            $table->string('address')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('race')->nullable();
+            $table->integer('age')->nullable();
             $table->timestamps();
         });
     }

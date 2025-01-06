@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('muips', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('staff_id');
-            $table->string('kafaName');
             $table->timestamps();
         });
     }
