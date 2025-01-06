@@ -28,6 +28,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        dd($request);
+
         if($request->user()->role == 'kafa')
         {
             return redirect(route('kafa.manageActivity'));
