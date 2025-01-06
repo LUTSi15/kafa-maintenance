@@ -279,7 +279,7 @@ class ActivityController extends Controller
     public function guardianManageActivity(Request $request) //Page for view activity list
     {
 
-        $activities = Activity::where('status', 'Approved');
+        $activities = Activity::whereIn('status', ['Approved'])->get();
 
         $breadcrumbs = [
             ['name' => 'Activity', 'url' => route('guardian.manageActivity')],
