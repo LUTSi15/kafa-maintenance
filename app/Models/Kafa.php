@@ -10,7 +10,7 @@ class Kafa extends Model
     use HasFactory;
 
     protected $fillable = [
-        'staff_id', // Add staff id field
+        'user_id', // Add user id field
         'kafaName', // Add Name of Kafa field
     ];
 

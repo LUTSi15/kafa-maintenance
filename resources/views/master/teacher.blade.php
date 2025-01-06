@@ -8,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/fontawesome.css">
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/bootstrapTeacher.css">
+    <link rel="stylesheet" href="/css/stylesTeacher.css">
     <title>KAFA System</title>
 </head>
 
@@ -17,13 +17,14 @@
     <!-- Navbar -->
     <nav id="main-navbar" class="navbar navbar-light bg-white border-bottom">
         <div class="container-fluid">
-            <h4 class="mt-2">KAFA Management System</h4>
+            <h4 class="mt-2">
+                Hi {{ Auth::user()->username }}, you login as {{ Auth::user()->role }}
+            </h4>
         </div>
     </nav>
     <!-- End Navbar -->
 
     <!-- Sidebar -->
-
     <nav id="sidebarMenu" class="d-lg-block sidebar">
 
         <!-- Brand -->
@@ -35,6 +36,16 @@
         <!-- End Brand -->
 
         <div class="menu position-sticky py-3 px-5">
+            <ul class="list-unstyled text-white py-2">
+                <span class="fw-bold h5">Profile</span>
+                <li>
+                    <a href="{{ route('listStudents') }}"
+                        class="nav-link {{ Request::routeIs('listStudents') ? 'active' : '' }}" style="color: inherit;">
+                        <i class="fas fa-book-open"></i><span class="item"> List of Student</span>
+                    </a>
+                </li>
+            </ul>
+
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Activity</span>
                 <li>
@@ -49,8 +60,9 @@
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Profile</span>
                 <li>
-                    <a href="{{ route('profile.edit') }}"
-                        class="nav-link {{ Request::routeIs('profile.edit') ? 'active' : '' }}" style="color: inherit;">
+                    <a href="{{ route('profile.teacherEdit') }}"
+                        class="nav-link {{ Request::routeIs('profile.teacherEdit') ? 'active' : '' }}"
+                        style="color: inherit;">
                         <i class="fas fa-user"></i><span class="item"> Profile</span>
                     </a>
                 </li>
@@ -74,15 +86,22 @@
         <!-- Breadcrumb -->
         <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb" class="bg-white pt-1">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#"
-                        class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover">
-                        Home </a></li>
-                <li class="breadcrumb-item"><a href="#"
-                        class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover">
-                        About </a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="#"
-                        class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover">
-                        Staff </a></li>
+                @foreach ($breadcrumbs as $breadcrumb)
+                    @if (!$loop->last)
+                        <!-- Breadcrumb link -->
+                        <li class="breadcrumb-item">
+                            <a href="{{ $breadcrumb['url'] }}"
+                                class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover">
+                                {{ $breadcrumb['name'] }}
+                            </a>
+                        </li>
+                    @else
+                        <!-- Current page -->
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {{ $breadcrumb['name'] }}
+                        </li>
+                    @endif
+                @endforeach
             </ol>
         </nav>
         <!-- End Breadcrumb -->

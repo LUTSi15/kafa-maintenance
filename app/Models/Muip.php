@@ -10,7 +10,7 @@ class Muip extends Model
     use HasFactory;
 
     protected $fillable = [
-        'staff_id', // Add staff id field
+        'user_id', // Add user id field
     ];
 
     public function user(){

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Guardian;
+use App\Models\Kafa;
+use App\Models\Muip;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -29,59 +33,49 @@ class RegisteredUserController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): RedirectResponse
-{
-    
-    $request->validate([
-        'name' => ['required', 'string', 'max:255'],
-        'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
-        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-        'phoneNum' => ['required', 'string', 'max:20'],
-        'role' => ['required', 'string'],
-        'icNum' => ['required', 'string', 'max:20'],
-        'address' => ['required', 'string', 'max:255'],
-        'gender' => ['required', Rule::in(['male', 'female', 'other'])],
-        'race' => ['required', 'string', 'max:50'],
-        'age' => ['required', 'integer', 'min:0'],
-        'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    ]);
-    
-    // Determine the status based on the role
-    $status = $request->role === 'teacher' ? 'processing' : 'approved';
+    {
 
-    $user = User::create([
-        'name' => $request->name,
-        'username' => $request->username,
-        'email' => $request->email,
-        'phoneNum' => $request->phoneNum,
-        'role' => $request->role,
-        'icNum' => $request->icNum,
-        'address' => $request->address,
-        'gender' => $request->gender,
-        'race' => $request->race,
-        'age' => $request->age,
-        'status' => $status,
-        'password' => Hash::make($request->password),
-    ]);
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'role' => ['required', 'string'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
 
-    event(new Registered($user));
+        $user = User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'role' => $request->role,
+            'password' => Hash::make($request->password),
+        ]);
 
-    Auth::login($user);
+        event(new Registered($user));
 
-    if($request->user()->role == 'kafa')
-        {
+        Auth::login($user);
+
+        if ($request->user()->role == 'kafa') {
+            Kafa::create([
+                'user_id' => $user->id,
+            ]);
             return redirect(route('kafa.manageActivity'));
-        }
-        elseif($request->user()->role == 'muip')
-        {
+        } elseif ($request->user()->role == 'muip') {
+            Muip::create([
+                'user_id' => $user->id,
+            ]);
             return redirect(route('muip.manageActivity'));
-        }
-        elseif($request->user()->role == 'guardian')
-        {
+        } elseif ($request->user()->role == 'guardian') {
+            Guardian::create([
+                'user_id' => $user->id,
+            ]);
             return redirect(route('guardian.manageActivity'));
-        }
-        elseif($request->user()->role == 'teacher')
-        {
+        } elseif ($request->user()->role == 'teacher') {
+            // dd($user->id);
+            Teacher::create([
+                'user_id' => $user->id,
+            ]);
             return redirect(route('teacher.manageActivity'));
         }
-}
+    }
 }

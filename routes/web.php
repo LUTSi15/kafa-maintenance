@@ -3,12 +3,10 @@
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
-use App\Http\Controllers\StudentResultController;
-use App\Http\Controllers\TimetableController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('ManageProfile.login');
 });
 
 Route::get('/dashboard', function () {
@@ -23,7 +21,22 @@ Route::controller(ProfileController::class)->middleware('auth')->group(function 
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/teacherProfile', [ProfileController::class, 'teacherEdit'])->name('profile.teacherEdit');
+    Route::put('/{teacher}/teacherProfileUpdate', [ProfileController::class, 'teacherUpdate'])->name('profile.teacherUpdate');
+    Route::get('/guardianProfile', [ProfileController::class, 'guardianEdit'])->name('profile.guardianEdit');
+    Route::put('/{guardian}/guardianProfileUpdate', [ProfileController::class, 'guardianUpdate'])->name('profile.guardianUpdate');
+    Route::get('/listParents', [ProfileController::class, 'listParents'])->name('kafa.listParents');
+    Route::get('/{guardian}/viewParent', [ProfileController::class, 'viewParent'])->name('kafa.viewParent');
+    Route::delete('/{guardian}/deleteParent', [ProfileController::class, 'deleteParent'])->name('kafa.deleteParent');
+    Route::get('/listStudents', [ProfileController::class, 'listStudents'])->name('listStudents');
+    Route::get('/{student}/viewStudent', [ProfileController::class, 'viewStudent'])->name('viewStudent');
+    Route::delete('/{student}/deleteStudent', [ProfileController::class, 'deleteStudent'])->name('deleteStudent');
+    Route::get('/registerParent', [ProfileController::class, 'registerParent'])->name('kafa.registerParent');
+    Route::post('/storeParent', [ProfileController::class, 'storeParent'])->name('kafa.storeParent');
+    Route::get('/registerTeacher', [ProfileController::class, 'registerTeacher'])->name('kafa.registerTeacher');
+    Route::post('/storeTeacher', [ProfileController::class, 'storeTeacher'])->name('kafa.storeTeacher');
+    Route::get('/registerStudent', [ProfileController::class, 'registerStudent'])->name('kafa.registerStudent');
+    Route::post('/storeStudent', [ProfileController::class, 'storeStudent'])->name('kafa.storeStudent');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -42,6 +55,7 @@ Route::controller(ActivityController::class)->middleware('auth')->group(function
     Route::get('/muip/manageActivity', 'muipManageActivity')->name('muip.manageActivity');
     Route::get('/muip/viewActivity/{activity}', 'muipViewActivity')->name('muip.viewActivity');
     Route::get('/muip/approveActivity', 'muipApproveActivity')->name('muip.approveActivity');
+    Route::post('/muip/batch-approve-activities', 'batchActionActivities')->name('muip.batchActionActivities');
     Route::post('/muip/approveActivity/{id}', 'approveActivity')->name('muip.approveActivityAction');
     Route::delete('/muip/rejectActivity/{id}', 'rejectActivity')->name('muip.rejectActivityAction');
 
@@ -62,27 +76,6 @@ Route::controller(ReportController::class)->middleware('auth')->group(function (
     Route::put('/kafa/{activity}/updateReportActivity', 'kafaUpdateReportActivity')->name('kafa.updateReportActivity');
     Route::get('/muip/listReportActivity', 'muipListReportActivity')->name('muip.listReportActivity');
     Route::get('/muip/{activity}/viewReportActivity', 'muipViewReportActivity')->name('muip.viewReportActivity');
-    Route::get('/muip/listClassReport', 'muipListClassReport')->name('muip.listClassReport');
-    Route::get('/muip/{classroom}/classAcademicReport', 'muipClassAcademicReport')->name('muip.classAcademicReport');
-    Route::get('/muip/{student}/{classroom}/studentAcademicReport', 'muipStudentAcademicReport')->name('muip.studentAcademicReport');
-});
-
-Route::controller(StudentResultController::class)->middleware('auth')->group(function () {
-    Route::get('/teacher/listStudent', 'teacherListStudent')->name('teacher.listStudent');
-    Route::get('/teacher/addResult/{studentID}', 'teacherAddResult')->name('teacher.addResult');
-    Route::get('/teacher/viewResult/{studentID}', 'teacherViewResult')->name('teacher.viewResult');
-    Route::get('/teacher/editResult/{studentID}', 'teacherEditResult')->name('teacher.editResult');
-    Route::get('/teacher/filterResult', 'teacherFilterResult')->name('teacher.filterResult');
-    Route::post('/teacher/manage-result', 'store')->name('teacher.storeResult');
-});
-
-Route::controller(TimetableController::class)->middleware('auth')->group(function () {
-    Route::get('/teacher/viewTimetable', 'teacherviewtimetable')->name('teacher.viewTimetable');
-    Route::get('/guardian/viewTimetable', 'guardianviewtimetable')->name('guardian.viewTimetable');
-    Route::get('/kafa/viewTimetable', 'kafaviewtimetable')->name('kafa.viewTimetable');
-    Route::get('/kafa/addTimetable', 'kafaaddtimetable')->name('kafa.addTimetable');
-    Route::get('/kafa/editTimetable', 'kafaedittimetable')->name('kafa.editTimetable');
-    Route::resource('timetable', TimetableController::class);
 });
 
 require __DIR__.'/auth.php';

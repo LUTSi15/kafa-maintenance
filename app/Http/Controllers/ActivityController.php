@@ -14,62 +14,78 @@ class ActivityController extends Controller
      */
     public function kafaManageActivity()
     {
-        // Retrieve all records from the activities table
-        $activities = Activity::all();
+        // Retrieve only activities with status "Approved" or "Rejected"
+        $activities = Activity::whereIn('status', ['Approved', 'Rejected'])->get();
 
-        // Pass the data to the view
-        return view('ManageKAFAActivities.kafaActivity', ['activities' => $activities]);
+        $breadcrumbs = [
+            ['name' => 'Activity', 'url' => route('kafa.manageActivity')],
+        ];
+
+        // Pass the filtered data to the view
+        return view('ManageKAFAActivities.kafaActivity', [
+            'activities' => $activities,
+            'breadcrumbs' => $breadcrumbs,
+        ]);
     }
 
 
- // ActivityController.php
+
+    // ActivityController.php
 
     public function kafaViewActivity(Activity $activity) //Page for activity details
     {
+
+        $breadcrumbs = [
+            ['name' => 'Activity', 'url' => route('kafa.manageActivity')],
+            ['name' => 'Activity Detail', 'url' => route('kafa.viewActivity', $activity->id)],
+        ];
         // Pass the activity details to the view
-        return view('ManageKAFAActivities.kafaViewActivity', ['activity' => $activity]);
+        return view('ManageKAFAActivities.kafaViewActivity', [
+            'activity' => $activity,
+            'breadcrumbs' => $breadcrumbs,
+        ]);
     }
 
 
     public function kafaAddActivity() //Page for adding new activity
     {
+        $breadcrumbs = [
+            ['name' => 'Activity', 'url' => route('kafa.manageActivity')],
+            ['name' => 'Create Activity', 'url' => route('kafa.addActivity')],
+        ];
         //Render and return the view for adding a new KAFA activity.
         // This view will contain the form where users can input details for a new activity.
-        return view('ManageKAFAActivities.kafaAddActivity');
+        return view(
+            'ManageKAFAActivities.kafaAddActivity',
+            ['breadcrumbs' => $breadcrumbs]
+        );
     }
 
     public function kafaEditActivity($id) //Page for editing activity
     {
         // Retrieve the activity record based on the provided ID
         $activity = Activity::find($id);
-    
+
+        $breadcrumbs = [
+            ['name' => 'Activity', 'url' => route('kafa.manageActivity')],
+            ['name' => 'Edit Activity', 'url' => route('kafa.editActivity', $activity->id)],
+        ];
+
         // Check if the activity record exists
         if (!$activity) {
             // Redirect back with an error message if the activity does not exist
             return redirect()->back()->with('error', 'Activity not found.');
         }
-    
+
         // Pass the activity details to the view for editing
-        return view('ManageKAFAActivities.kafaEditActivity', ['activity' => $activity]);
+        return view('ManageKAFAActivities.kafaEditActivity', [
+            'activity' => $activity,
+            'breadcrumbs' => $breadcrumbs,
+        ]);
     }
 
     public function kafaStoreActivity(Request $request) //Store new activity
     {
-        // Validate the incoming request data
-        // $request->validate([
-        //     'activityName' => 'required|string|max:255',
-        //     'venue' => 'required|string|max:255',
-        //     'dateStart' => 'required|date',
-        //     'dateEnd' => 'required|date|after_or_equal:dateStart',
-        //     'timeStart' => 'required|date_format:H:i',
-        //     'timeEnd' => 'required|date_format:H:i|after:timeStart',
-        //     'attendees' => 'required|string|max:255',
-        //     'organizerName' => 'required|string|max:255',
-        //     'description' => 'required|string',
-        //     'kafa_id' => 'required|exists:kafas,id',
-        // ]);
-
-        // Create a new activity instance
         $activity = new Activity();
         $activity->activityName = $request->input('activityName');
         $activity->venue = $request->input('venue');
@@ -111,13 +127,13 @@ class ActivityController extends Controller
 
     public function kafaUpdateActivity(Request $request, Activity $activity) //Update activity
     {
-    
+
         // Check if the activity record exists
         if (!$activity) {
             // Redirect back or display an error message if the activity does not exist
             return redirect()->route('kafa.manageActivity')->with('error', 'Activity not found.');
         }
-    
+
         // Validate the incoming request data
         // $validatedData = $request->validate([
         //     'activityName' => 'required|string|max:255',
@@ -131,7 +147,7 @@ class ActivityController extends Controller
         // ]);
 
         //Update the activity with the validated data
-        $activity->update([ 
+        $activity->update([
             'activityName' => $request->input('activityName'),
             'venue' => $request->input('venue'),
             'dateStart' => $request->input('dateStart'),
@@ -143,12 +159,12 @@ class ActivityController extends Controller
             'description' => $request->input('description'),
             'feedback' => $request->input('feedback'),
         ]);
-    
-    
+
+
         // Redirect back with a success message
         return redirect()->route('kafa.manageActivity')->with('success', 'Activity updated successfully.');
     }
- 
+
 
 
     //MUIP
@@ -158,44 +174,102 @@ class ActivityController extends Controller
     public function muipManageActivity(Request $request)
     {
         $search = $request->input('search');
-        $activities = Activity::when($search, function ($query, $search) {
-            return $query->where('activityName', 'like', '%' . $search . '%');
-        })->get();
-    
-        return view('ManageKAFAActivities.muipActivity', ['activities' => $activities]);
-    }
-    
-    public function muipViewActivity(Activity $activity) //Page for activity details
-    {
-        return view('ManageKAFAActivities.muipViewActivity', ['activity' => $activity]);
-    }
-    
-    public function muipApproveActivity(Request $request) //Page for approving activity
-    {
-        $search = $request->input('search');
-        $activities = Activity::where('activityName', 'like', '%' . $search . '%')->get();
-        return view('ManageKAFAActivities.muipApprovalActivity', compact('activities'));
+        $activities = Activity::where('status', 'Approved') // Filter only approved activities
+            ->when($search, function ($query, $search) {
+                return $query->where('activityName', 'like', '%' . $search . '%');
+            })
+            ->get();
+
+        $breadcrumbs = [
+            ['name' => 'Activity', 'url' => route('muip.manageActivity')],
+        ];
+
+        return view('ManageKAFAActivities.muipActivity', [
+            'activities' => $activities,
+            'breadcrumbs' => $breadcrumbs,
+        ]);
     }
 
-    
+
+    public function muipViewActivity(Activity $activity) //Page for activity details
+    {
+        $breadcrumbs = [
+            ['name' => 'Activity', 'url' => route('muip.manageActivity')],
+            ['name' => 'Activity Detail', 'url' => route('muip.viewActivity', $activity->id)],
+        ];
+
+        return view('ManageKAFAActivities.muipViewActivity', [
+            'activity' => $activity,
+            'breadcrumbs' => $breadcrumbs,
+        ]);
+    }
+
+    public function muipApproveActivity(Request $request) // Page for approving activity
+    {
+        $breadcrumbs = [
+            ['name' => 'Approve Activity', 'url' => route('muip.approveActivity')],
+        ];
+        $search = $request->input('search');
+
+        // Retrieve activities with the status 'Request' and matching the search query
+        $activities = Activity::where('status', 'Request')
+            ->where('activityName', 'like', '%' . $search . '%')
+            ->get();
+
+        return view('ManageKAFAActivities.muipApprovalActivity', compact('activities', 'breadcrumbs'));
+    }
+
+    public function batchActionActivities(Request $request)
+    {
+        $activityIds = $request->input('activity_ids', []); // Get selected activity IDs
+        $action = $request->input('action'); // Determine the action (approve or reject)
+
+        if (empty($activityIds)) {
+            return redirect()->route('muip.approveActivity')
+                ->with('error', 'No activities selected.');
+        }
+
+        switch ($action) {
+            case 'approve':
+                // Update the status of selected activities to 'Approved'
+                Activity::whereIn('id', $activityIds)->update(['status' => 'Approved']);
+                $message = 'Selected activities have been approved.';
+                break;
+
+            case 'reject':
+                // Update the status of selected activities to 'Rejected'
+                Activity::whereIn('id', $activityIds)->update(['status' => 'Rejected']);
+                $message = 'Selected activities have been rejected.';
+                break;
+
+            default:
+                $message = 'Invalid action.';
+                break;
+        }
+
+        return redirect()->route('muip.approveActivity')
+            ->with('success', $message);
+    }
+
+
     public function approveActivity($id) //Approve activity
     {
         $activity = Activity::findOrFail($id); //Find the activity by ID
-        $activity->status = 'approved'; //Change the status to approved
+        $activity->status = 'Approved'; //Change the status to approved
         $activity->save(); //Save the changes
-    
+
         return redirect()->route('muip.approveActivity')->with('success', 'Activity approved successfully.'); //Redirect back with a success message
     }
-    
+
     public function rejectActivity($id) //Reject activity
     {
         $activity = Activity::findOrFail($id); //Find the activity by ID
         $activity->status = 'rejected'; //Change the status to rejected
         $activity->save(); //Save the changes
-    
+
         return redirect()->route('muip.approveActivity')->with('success', 'Activity rejected successfully.'); //Redirect back with a success message
     }
-    
+
 
 
     //Guardian
@@ -204,30 +278,38 @@ class ActivityController extends Controller
      */
     public function guardianManageActivity(Request $request) //Page for view activity list
     {
-        // $search = $request->input('search'); //Retrieve the search term from the request
 
-        // // Retrieve records from the activities table, filtering by the search term if provided
-        // $activities = Activity::when($search, function ($query, $search) {
-        //     return $query->where('activityName', 'like', '%' . $search . '%'); //Filter by activity name
-        // })->get(); //Get the filtered records
+        $activities = Activity::where('status', 'Approved');
 
-        $activities = Activity::all();
+        $breadcrumbs = [
+            ['name' => 'Activity', 'url' => route('guardian.manageActivity')],
+        ];
 
         // Pass the data to the view
-        return view('ManageKAFAActivities.ParentsActivity', ['activities' => $activities]);
+        return view('ManageKAFAActivities.ParentsActivity', [
+            'activities' => $activities,
+            'breadcrumbs' => $breadcrumbs,
+        ]);
     }
 
 
     public function guardianViewActivity(Activity $activity) //Page for activity details
     {
+        $breadcrumbs = [
+            ['name' => 'Activity', 'url' => route('guardian.manageActivity')],
+            ['name' => 'Activity Detail', 'url' => route('guardian.viewActivity', $activity->id)],
+        ];
         // Pass the activity details to the view
-        return view('ManageKAFAActivities.ParentsViewActivity', ['activity' => $activity]);
+        return view('ManageKAFAActivities.ParentsViewActivity', [
+            'activity' => $activity,
+            'breadcrumbs' => $breadcrumbs,
+        ]);
     }
 
 
 
     //Teacher
-     /**
+    /**
      * Display a listing of the activity in teacher page.
      */
     public function teacherManageActivity(Request $request) //Page for list activity
@@ -235,68 +317,32 @@ class ActivityController extends Controller
         $search = $request->input('search');
 
         // Retrieve records from the activities table, filtering by the search term if provided
-        $activities = Activity::when($search, function ($query, $search) { //Filter by activity name
+        $activities = Activity::where('status', 'Approved')->when($search, function ($query, $search) { //Filter by activity name
             return $query->where('activityName', 'like', '%' . $search . '%'); //Filter by activity name
         })->get(); //Get the filtered records
 
+        $breadcrumbs = [
+            ['name' => 'Activity', 'url' => route('teacher.manageActivity')],
+        ];
+
         // Pass the data to the view
-        return view('ManageKAFAActivities.teacherActivity', ['activities' => $activities]);
+        return view('ManageKAFAActivities.teacherActivity', [
+            'activities' => $activities,
+            'breadcrumbs' => $breadcrumbs,
+        ]);
     }
 
 
     public function teacherViewActivity(Activity $activity) //Page for activity details
     {
+        $breadcrumbs = [
+            ['name' => 'Activity', 'url' => route('teacher.manageActivity')],
+            ['name' => 'Activity Detail', 'url' => route('teacher.viewActivity', $activity->id)],
+        ];
         // Pass the activity details to the view
-        return view('ManageKAFAActivities.teacherViewActivity', ['activity' => $activity]);
-    }
-
-   
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('ManageKAFAActivities.teacherViewActivity', [
+            'activity' => $activity,
+            'breadcrumbs' => $breadcrumbs,
+        ]);
     }
 }

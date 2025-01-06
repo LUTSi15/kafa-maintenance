@@ -26,13 +26,6 @@
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
     
-            <!-- Phone Number -->
-            <div>
-                <x-input-label for="phoneNum" :value="__('Phone Number')" />
-                <x-text-input id="phoneNum" class="block mt-1 w-full" type="text" name="phoneNum" :value="old('phoneNum')" required autocomplete="tel" />
-                <x-input-error :messages="$errors->get('phoneNum')" class="mt-2" />
-            </div>
-    
             <!-- Role -->
             <div>
                 <x-input-label for="role" :value="__('Role')" />
@@ -44,47 +37,6 @@
                     <option value="teacher" {{ old('role') == 'teacher' ? 'selected' : '' }}>Teacher</option>
                 </select>
                 <x-input-error :messages="$errors->get('role')" class="mt-2" />
-            </div>
-            
-    
-            <!-- IC Number -->
-            <div>
-                <x-input-label for="icNum" :value="__('IC Number')" />
-                <x-text-input id="icNum" class="block mt-1 w-full" type="text" name="icNum" :value="old('icNum')" required autocomplete="icNum" />
-                <x-input-error :messages="$errors->get('icNum')" class="mt-2" />
-            </div>
-    
-            <!-- Address -->
-            <div>
-                <x-input-label for="address" :value="__('Address')" />
-                <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autocomplete="address" />
-                <x-input-error :messages="$errors->get('address')" class="mt-2" />
-            </div>
-    
-            <!-- Gender -->
-            <div>
-                <x-input-label for="gender" :value="__('Gender')" />
-                <select id="gender" name="gender" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
-                    <option value="">{{ __('Select Gender') }}</option>
-                    <option value="male">{{ __('Male') }}</option>
-                    <option value="female">{{ __('Female') }}</option>
-                    <option value="other">{{ __('Other') }}</option>
-                </select>
-                <x-input-error :messages="$errors->get('gender')" class="mt-2" />
-            </div>
-    
-            <!-- Race -->
-            <div>
-                <x-input-label for="race" :value="__('Race')" />
-                <x-text-input id="race" class="block mt-1 w-full" type="text" name="race" :value="old('race')" required autocomplete="race" />
-                <x-input-error :messages="$errors->get('race')" class="mt-2" />
-            </div>
-    
-            <!-- Age -->
-            <div>
-                <x-input-label for="age" :value="__('Age')" />
-                <x-text-input id="age" class="block mt-1 w-full" type="number" name="age" :value="old('age')" required autocomplete="age" />
-                <x-input-error :messages="$errors->get('age')" class="mt-2" />
             </div>
     
             <!-- Password -->

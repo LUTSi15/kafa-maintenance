@@ -8,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/fontawesome.css">
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/bootstrapMuip.css">
+    <link rel="stylesheet" href="/css/stylesMuip.css">
     <title>KAFA System</title>
 </head>
 
@@ -17,7 +17,9 @@
     <!-- Navbar -->
     <nav id="main-navbar" class="navbar navbar-light bg-white border-bottom">
         <div class="container-fluid">
-            <h4 class="mt-2">KAFA Management System</h4>
+            <h4 class="mt-2">
+                Hi {{ Auth::user()->username }}, you login as {{ Auth::user()->role }}
+            </h4>
         </div>
     </nav>
     <!-- End Navbar -->
@@ -39,13 +41,15 @@
                 <span class="fw-bold h5">Activity</span>
                 <li>
                     <a href="{{ route('muip.approveActivity') }}"
-                        class="nav-link {{ Request::routeIs('muip.approveActivity') ? 'active' : '' }}" style="color: inherit;">
+                        class="nav-link {{ Request::routeIs('muip.approveActivity') ? 'active' : '' }}"
+                        style="color: inherit;">
                         <i class="fas fa-book-open"></i><span class="item"> Approve Activity</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('muip.manageActivity') }}"
-                        class="nav-link {{ Request::routeIs('muip.manageActivity') ? 'active' : '' }}" style="color: inherit;">
+                        class="nav-link {{ Request::routeIs('muip.manageActivity') ? 'active' : '' }}"
+                        style="color: inherit;">
                         <i class="fas fa-book-open"></i><span class="item"> Activity</span>
                     </a>
                 </li>
@@ -55,7 +59,8 @@
                 <span class="fw-bold h5">Report</span>
                 <li>
                     <a href="{{ route('muip.listReportActivity') }}"
-                        class="nav-link {{ Request::routeIs('muip.listReportActivity') ? 'active' : '' }}" style="color: inherit;">
+                        class="nav-link {{ Request::routeIs('muip.listReportActivity') ? 'active' : '' }}"
+                        style="color: inherit;">
                         <i class="fas fa-book-open"></i><span class="item"> Report Activity</span>
                     </a>
                 </li>
@@ -63,12 +68,6 @@
 
             <ul class="list-unstyled text-white py-2">
                 <span class="fw-bold h5">Profile</span>
-                <li>
-                    <a href="{{ route('profile.edit') }}"
-                        class="nav-link {{ Request::routeIs('profile.edit') ? 'active' : '' }}" style="color: inherit;">
-                        <i class="fas fa-user"></i><span class="item"> Profile</span>
-                    </a>
-                </li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}" class="d-inline">
                         @csrf
@@ -89,15 +88,22 @@
         <!-- Breadcrumb -->
         <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb" class="bg-white pt-1">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#"
-                        class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover">
-                        Home </a></li>
-                <li class="breadcrumb-item"><a href="#"
-                        class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover">
-                        About </a></li>
-                <li class="breadcrumb-item active" aria-current="page"><a href="#"
-                        class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover">
-                        Staff </a></li>
+                @foreach ($breadcrumbs as $breadcrumb)
+                    @if (!$loop->last)
+                        <!-- Breadcrumb link -->
+                        <li class="breadcrumb-item">
+                            <a href="{{ $breadcrumb['url'] }}"
+                                class="text-dark link-underline-dark link-underline-opacity-0 link-underline-opacity-75-hover">
+                                {{ $breadcrumb['name'] }}
+                            </a>
+                        </li>
+                    @else
+                        <!-- Current page -->
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {{ $breadcrumb['name'] }}
+                        </li>
+                    @endif
+                @endforeach
             </ol>
         </nav>
         <!-- End Breadcrumb -->
@@ -118,6 +124,13 @@
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script src="../../js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function toggleAllCheckboxes(selectAllCheckbox) {
+            const checkboxes = document.querySelectorAll('.activity-checkbox');
+            checkboxes.forEach(checkbox => checkbox.checked = selectAllCheckbox.checked);
+        }
+    </script>
+    
 </body>
 
 </html>
